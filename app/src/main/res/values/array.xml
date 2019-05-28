@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="phone_verification_steps">
+        <item>Send OTP</item>
+        <item>Verify</item>
+        <item>Done</item>
+    </string-array>
+
+    <string-array name="order_status_steps">
+        <item>Submitted</item>
+        <item>Quoted</item>
+        <item>Placed</item>
+        <item>Preparing</item>
+        <item>Ready for Pickup/Delivery</item>
+        <item>Picked Up/Delivered</item>
+    </string-array>
+
+    <string-array name="order_status_labels">
+        <item>Submitted on</item>
+        <item>Quoted</item>
+        <item>Placed on</item>
+        <item>Being Prepared</item>
+        <item>Ready for pickup,</item>
+        <item>Ready for delivery,</item>
+        <item>Picked up on</item>
+        <item>Delivered on</item>
+    </string-array>
+
+</resources>

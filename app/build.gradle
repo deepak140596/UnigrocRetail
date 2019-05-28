@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.avvnapps.unigorcretail"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    implementation 'androidx.core:core-ktx:1.1.0-alpha05'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+
+    implementation 'com.google.android.material:material:1.1.0-alpha05'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha04'
+
+    //====================================================================================
+    // Firebase Core
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-firestore:18.0.1'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
+    //====================================================================================
+    // Room components
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
+
+    //=====================================================================================
+    // Location
+    implementation "com.google.android.gms:play-services-location:16.0.0"
+
+    // maps
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation "com.google.android.gms:play-services-places:16.1.0"
+
+    //=====================================================================================
+
+    // Toasty
+    implementation 'com.github.GrenderG:Toasty:1.3.0'
+
+    // circle image view
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    // glide
+    implementation 'com.github.bumptech.glide:glide:3.6.1'
+
+    //For Step View
+    implementation 'com.shuhart.stepview:stepview:1.2.8'
+    //For PinView EditText
+    implementation 'com.chaos.view:pinview:1.3.2'
+    //For playing .gif images
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
+
+    // Floating Search View
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+
+    // Phone input layout
+    implementation 'net.rimoto:intlphoneinput:1.0.1'
+
+    // Custom Radio Buttons
+    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'\
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Rating view
+    implementation 'hyogeun.github.com.colorratingbar:ColorRatingBar:1.0.1'
+
+    // sectional recycler view
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
+
+}
+
+apply plugin: 'com.google.gms.google-services'
