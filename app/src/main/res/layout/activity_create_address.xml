@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".location_address.CreateAddressActivity">
@@ -14,77 +13,77 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-        >
+                android:orientation="vertical">
+
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/create_address_house_name_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    app:helperText="*Required"
                     app:errorEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:helperText="*Required">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_address_house_name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="House/Flat Name/No."/>
+                        android:hint="House/Flat Name/No." />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/create_address_locality_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    app:helperText="*Required"
                     app:errorEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:helperText="*Required">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_address_locality_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Locality"/>
+                        android:hint="Locality" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/create_address_landmark_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    app:helperText="*Required"
                     app:errorEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:helperText="*Required">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_address_landmark_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Landmark"/>
+                        android:hint="Landmark" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/create_address_name_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    app:helperText="Eg. Home, Work"
                     app:errorEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:helperText="Eg. Home, Work">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_address_name_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Save Address As"/>
+                        android:hint="Save Address As" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,36 +93,31 @@
                     android:layout_height="56dp"
                     android:layout_margin="16dp"
                     android:background="@drawable/button_main_background"
-                    android:textColor="@color/color_white"
                     android:text="Select Location on Map"
-            />
+                    android:textColor="@color/color_white" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/create_address_is_location_set_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:text="Location Set"
                     android:checked="false"
                     android:clickable="false"
-            />
+                    android:text="Location Set" />
 
         </LinearLayout>
 
     </ScrollView>
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/create_address_done_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:src="@mipmap/ic_done_white"
-    />
-
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@mipmap/ic_done_white" />
 
 
 </RelativeLayout>

@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingTop="8dp"
-        android:paddingBottom="4dp"
-        android:paddingRight="8dp">
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp">
 
 
     <TextView
             android:id="@+id/item_address_options_tv"
+            style="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:focusable="true"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/_8942"
-            android:textAppearance="?android:textAppearanceLarge"
-            style="?attr/selectableItemBackground"
-            android:focusable="true"
-    />
+            android:textAppearance="?android:textAppearanceLarge" />
+
     <LinearLayout
             android:id="@+id/item_address_ll"
             android:layout_width="match_parent"
@@ -35,14 +34,13 @@
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         <TextView
                 android:id="@+id/item_saved_add_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1598 Paroma Apt, Hussainpur, Kolkata"
-        />
+                android:text="1598 Paroma Apt, Hussainpur, Kolkata" />
     </LinearLayout>
 
 

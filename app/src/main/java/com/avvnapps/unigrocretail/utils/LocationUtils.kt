@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.avvnapps.unigrocretail.models.AddressItem
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.SphericalUtil
 import java.io.IOException
 import java.util.*
 
@@ -59,7 +62,7 @@ class LocationUtils(context: Context){
                 add += if (obj.subAdminArea == null) "" else obj.subAdminArea
 
 
-                //Log.v(TAG, "Address received: $add")
+                //Log.v("aTAG", "Address received: $add")
 
                 return add
             } catch (e: IOException) {
@@ -69,6 +72,12 @@ class LocationUtils(context: Context){
 
             return ""
         }
+        fun isNear(activity: AppCompatActivity, addressItem: AddressItem): Boolean {
+            val minDist = 3
+            if(getDistance(activity,addressItem) <= minDist)
+                return true
+            return false
+        }
 
         fun getDistance(activity: AppCompatActivity,addressItem: AddressItem): Float {
             var loc1 = Location("Location1")
@@ -77,17 +86,22 @@ class LocationUtils(context: Context){
 
             var loc2 = Location("Location2")
             var l = LocationUtils(activity).location.value
-            loc2.longitude = l!!.longitude
-            loc2.latitude = l!!.latitude
+            if (l != null) {
+                loc2.longitude = l.longitude
+            }
+            if (l != null) {
+                loc2.latitude = l.latitude
+            }
+
+            val fromPosition = LatLng(loc1.longitude, loc1.latitude)
+            val toPosition = LatLng(loc2.longitude, loc2.latitude)
+            val distance = SphericalUtil.computeDistanceBetween(fromPosition, toPosition)
+            Log.v("aTAG", "Address distant :" +loc2.longitude +","+loc2.latitude +" / "+loc1.distanceTo(loc2))
             return loc1.distanceTo(loc2)
+
         }
 
-        fun isNear(activity: AppCompatActivity, addressItem: AddressItem): Boolean {
-            val minDist = 3
-            if(getDistance(activity,addressItem) <= minDist)
-                return true
-            return false
-        }
+
 
 
     }

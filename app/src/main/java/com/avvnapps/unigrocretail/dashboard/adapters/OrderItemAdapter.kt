@@ -17,8 +17,11 @@ import com.avvnapps.unigrocretail.quote_submitted_order.SummaryItemAdapter
 import kotlinx.android.synthetic.main.activity_summary_quotation.view.*
 
 
-class OrderItemAdapter(var context: Context, var orderList: List<OrderItem>, var firestoreViewModel: FirestoreViewModel)
-    :RecyclerView.Adapter<OrderItemAdapter.ViewHolder>(){
+class OrderItemAdapter(
+    var context: Context,
+    var orderList: List<OrderItem>,
+    var firestoreViewModel: FirestoreViewModel
+) : RecyclerView.Adapter<OrderItemAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -33,32 +36,37 @@ class OrderItemAdapter(var context: Context, var orderList: List<OrderItem>, var
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderItem = orderList[position]
-        holder.bindItems(context,orderItem,firestoreViewModel)
+        holder.bindItems(context, orderItem, firestoreViewModel)
     }
 
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var TAG = "ORDER_ITEM_ADAPTER"
-        lateinit var context : Context
+        lateinit var context: Context
 
-        fun bindItems(context: Context, orderItem: OrderItem, firestoreViewModel: FirestoreViewModel){
+        fun bindItems(
+            context: Context,
+            orderItem: OrderItem,
+            firestoreViewModel: FirestoreViewModel
+        ) {
             this.context = context
 
             itemView.item_order_customer_name_tv.text = orderItem.customerId
             itemView.item_order_id_tv.text = orderItem.orderId.toString()
             itemView.item_order_delivery_pickup_tv.text = OrderUtils.getOrderType(orderItem)
             itemView.item_order_status_tv.text = OrderUtils.getOrderStatus(orderItem.orderStatus)
-            if(orderItem.orderStatus < ApplicationConstants.ORDER_PICKED_DELIVERED) {
-                itemView.item_order_change_status_btn.text = OrderUtils.getOrderStatus(orderItem.orderStatus + 1)
-            }else{
+            if (orderItem.orderStatus < ApplicationConstants.ORDER_PICKED_DELIVERED) {
+                itemView.item_order_change_status_btn.text =
+                    OrderUtils.getOrderStatus(orderItem.orderStatus + 1)
+            } else {
                 itemView.item_order_change_status_btn.visibility = View.GONE
             }
 
             itemView.item_order_change_status_btn.setOnClickListener {
-                if(orderItem.orderStatus == ApplicationConstants.ORDER_PREPARING) {
+                if (orderItem.orderStatus == ApplicationConstants.ORDER_PREPARING) {
                     firestoreViewModel.makeOrderReady(orderItem)
                 }
-                if(orderItem.orderStatus == ApplicationConstants.ORDER_READY){
+                if (orderItem.orderStatus == ApplicationConstants.ORDER_READY) {
                     firestoreViewModel.completeOrder(orderItem)
                 }
             }
@@ -68,13 +76,14 @@ class OrderItemAdapter(var context: Context, var orderList: List<OrderItem>, var
             }
         }
 
-        fun showDialogForCartItems(orderItem: OrderItem){
+        fun showDialogForCartItems(orderItem: OrderItem) {
             var dialog = Dialog(context)
-            var layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var view : View = layoutInflater.inflate(R.layout.activity_summary_quotation,null)
+            var layoutInflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            var view: View = layoutInflater.inflate(R.layout.activity_summary_quotation, null)
 
             view.activity_summary_quotation_price_rv.layoutManager = LinearLayoutManager(context)
-            var adapter = SummaryItemAdapter(context,orderItem.cartItems)
+            var adapter = SummaryItemAdapter(context, orderItem.cartItems)
             view.activity_summary_quotation_price_rv.adapter = adapter
             view.activity_summary_quotation_price_ll.visibility = View.GONE
 
@@ -83,7 +92,10 @@ class OrderItemAdapter(var context: Context, var orderList: List<OrderItem>, var
             view.activity_summary_quotation_price_rv.layoutParams = rv_params
 
             view.activity_summary_quotation_rl.layoutParams =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
 
             dialog.setContentView(view)
             dialog.show()

@@ -1,51 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:orientation="vertical"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp" tools:srcCompat="@tools:sample/avatars"
             android:id="@+id/item_cart_iv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
-            android:text="76"
+            android:id="@+id/item_quote_summary_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_quote_summary_price_tv" android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/item_cart_iv" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" android:textStyle="bold" android:textSize="20sp"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="76"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/item_cart_iv"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-            android:text="TextView"
+            android:id="@+id/item_quote_summary_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/item_quote_summary_name_tv" android:layout_marginStart="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:lines="1"
-            app:layout_constraintStart_toEndOf="@+id/item_cart_iv" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_price_tv"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"/>
-    <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_quote_summary_qty_tv" android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/item_cart_iv" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_name_tv"/>
-    <TextView
-            android:text="450"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_quote_summary_total_price_tv" android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp" android:textStyle="bold"
-            android:textColor="@color/color_blue" android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_name_tv" android:layout_marginTop="1dp"/>
+            app:layout_constraintStart_toEndOf="@+id/item_cart_iv"
+            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_price_tv" />
+
+    <TextView
+            android:id="@+id/item_quote_summary_qty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_cart_iv"
+            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_name_tv" />
+
+    <TextView
+            android:id="@+id/item_quote_summary_total_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="450"
+            android:textColor="@color/color_blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_quote_summary_name_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

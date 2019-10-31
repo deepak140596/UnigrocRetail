@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            xmlns:android="http://schemas.android.com/apk/res/android">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/appbar_dashboard_toolbar"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:theme="@style/Theme.MaterialComponents"
                 android:background="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                android:padding="0dp">
+                android:orientation="vertical"
+                android:padding="0dp"
+                android:theme="@style/Theme.MaterialComponents"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,17 +37,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:textSize="12sp"
                             android:text="Delivering To"
-                            android:textColor="@color/color_white"/>
+                            android:textColor="@color/color_white"
+                            android:textSize="12sp" />
 
                     <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:layout_marginTop="8dp"
                             android:layout_marginLeft="8dp"
-                            android:src="@mipmap/ic_edit_white"
-                            android:layout_toRightOf="@id/appbar_dashboard_delivery_to_label_tv"/>
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@id/appbar_dashboard_delivery_to_label_tv"
+                            android:src="@mipmap/ic_edit_white" />
 
 
                     <TextView
@@ -58,12 +55,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/appbar_dashboard_delivery_to_label_tv"
-                            android:textColor="@color/color_white"
                             android:text="Hussainpur, Madurdaha, Kolkata"
-                            android:textSize="16sp"/>
+                            android:textColor="@color/color_white"
+                            android:textSize="16sp" />
 
                 </RelativeLayout>
-
 
 
                 <LinearLayout
@@ -76,23 +72,22 @@
                             android:id="@+id/appbar_dashboard_categories_rv"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:layout_marginBottom="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginRight="8dp"
-                            android:focusable="true"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/custom_search_background"
                             android:clickable="true"
-                            android:background="@drawable/custom_search_background">
+                            android:focusable="true">
 
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
                                 android:paddingLeft="16dp"
                                 android:paddingRight="16dp"
-                                android:layout_centerInParent="true"
-                                android:textSize="16dp"
                                 android:text="Categories"
                                 android:textColor="@color/colorPrimary"
-                        />
+                                android:textSize="16dp" />
 
                     </RelativeLayout>
 
@@ -100,38 +95,33 @@
                             android:id="@+id/appbar_dashboard_search_ll"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:orientation="horizontal"
                             android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
                             android:layout_marginRight="16dp"
-                            android:focusable="true"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/custom_search_background"
                             android:clickable="true"
-                            android:background="@drawable/custom_search_background">
+                            android:focusable="true"
+                            android:orientation="horizontal">
 
                         <ImageView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@mipmap/ic_search_primarycolor"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="16dp"
-                        />
+                                android:src="@mipmap/ic_search_primarycolor" />
 
                         <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:text="Search Products ..."
                                 android:textColor="@color/colorPrimary"
-                                android:layout_gravity="center_vertical"
-                                android:textSize="16sp"
-                        />
+                                android:textSize="16sp" />
 
 
                     </LinearLayout>
                 </LinearLayout>
-
-
-
 
 
             </LinearLayout>
@@ -140,15 +130,15 @@
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/appbar_dashboard_tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/fragment_dashboard_view_pager"
             android:layout_width="match_parent"
-            android:paddingTop="0dp"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:paddingTop="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

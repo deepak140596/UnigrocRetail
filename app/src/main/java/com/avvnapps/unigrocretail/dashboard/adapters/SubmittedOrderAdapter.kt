@@ -13,8 +13,8 @@ import com.avvnapps.unigrocretail.utils.DateTimeUtils
 import com.avvnapps.unigrocretail.utils.OrderUtils
 import kotlinx.android.synthetic.main.item_submitted_order.view.*
 
-class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<OrderItem>)
-    :RecyclerView.Adapter<SubmittedOrderAdapter.ViewHolder>(){
+class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<OrderItem>) :
+    RecyclerView.Adapter<SubmittedOrderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -30,7 +30,7 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderItem = submittedOrderList[position]
-        holder.bindItems(context,orderItem)
+        holder.bindItems(context, orderItem)
 
 
     }
@@ -38,35 +38,44 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var TAG = "SUBMITTED_ORDER_ITEM_ADAPTER"
-        lateinit var context : Context
+        lateinit var context: Context
 
         fun bindItems(context: Context, orderItem: OrderItem) {
             this.context = context
 
-            var preferredDeliveryTime = DateTimeUtils.getPreferredDeliveryDate(orderItem.preferredDate,orderItem.preferredTimeSlot)
+            var preferredDeliveryTime = DateTimeUtils.getPreferredDeliveryDate(
+                orderItem.preferredDate,
+                orderItem.preferredTimeSlot
+            )
             itemView.item_submitted_order_estimated_delivery_tv.text = preferredDeliveryTime
             itemView.item_submitted_order_id_tv.text = orderItem.orderId.toString()
             itemView.item_submitted_order_cart_size_tv.text = orderItem.cartItems.size.toString()
 
-            setupOrderStatus(orderItem.orderStatus,OrderUtils.getTime(orderItem.orderStatus,orderItem),orderItem.isPickup)
+            setupOrderStatus(
+                orderItem.orderStatus,
+                OrderUtils.getTime(orderItem.orderStatus, orderItem),
+                orderItem.isPickup
+            )
 
             itemView.setOnClickListener {
-                var intent = Intent(context,
-                    CalculateQuotationPriceActivity::class.java)
-                intent.putExtra(context.getString(R.string.selected_order_item),orderItem)
+                var intent = Intent(
+                    context,
+                    CalculateQuotationPriceActivity::class.java
+                )
+                intent.putExtra(context.getString(R.string.selected_order_item), orderItem)
 
                 context.startActivity(intent)
             }
         }
 
-        private fun setupOrderStatus(orderStatus: Int,time: Long, isPickup : Boolean){
+        private fun setupOrderStatus(orderStatus: Int, time: Long, isPickup: Boolean) {
             var formattedDate = DateTimeUtils.dateTimeFormatter.format(time)
-            if(time == 0L)
+            if (time == 0L)
                 formattedDate = ""
             var statusArray = context.resources.getStringArray(R.array.order_status_labels)
             var status = ""
 
-            when(orderStatus){
+            when (orderStatus) {
                 0 -> status = statusArray[0]
                 1 -> {
                     status = statusArray[1]
@@ -77,14 +86,14 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
                     status = statusArray[3]
                     formattedDate = ""
                 }
-                4 ->{
-                    if(isPickup)
+                4 -> {
+                    if (isPickup)
                         status = statusArray[4]
                     else
                         status = statusArray[5]
                 }
-                5 ->{
-                    if(isPickup)
+                5 -> {
+                    if (isPickup)
                         status = statusArray[6]
                     else
                         status = statusArray[7]
