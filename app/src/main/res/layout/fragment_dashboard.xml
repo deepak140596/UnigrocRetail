@@ -55,6 +55,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/appbar_dashboard_delivery_to_label_tv"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="Hussainpur, Madurdaha, Kolkata"
                             android:textColor="@color/color_white"
                             android:textSize="16sp" />

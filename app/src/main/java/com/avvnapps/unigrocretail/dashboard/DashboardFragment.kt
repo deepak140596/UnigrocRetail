@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.dashboard.adapters.DashboardPagerAdapter
 import com.avvnapps.unigrocretail.location_address.SavedAddressesActivity
+import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
@@ -26,6 +27,7 @@ class DashboardFragment : Fragment() {
     lateinit var activity: AppCompatActivity
 
     lateinit var dashboardView: View
+    private lateinit var gpsUtils: GpsUtils
 
 
     override fun onCreateView(
@@ -40,6 +42,7 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gpsUtils = GpsUtils(this)
 
         dashboardView = view
         activity.setSupportActionBar(appbar_dashboard_toolbar)
@@ -50,7 +53,8 @@ class DashboardFragment : Fragment() {
         LocationUtils(activity).getLocation().observe(activity, Observer { loc: Location? ->
             if (loc != null) {
                 location = loc!!
-                updateAddress()
+                //updateAddress()
+                getLocation()
             }
 
         })
@@ -75,6 +79,18 @@ class DashboardFragment : Fragment() {
         if (address != null) {
             Log.i(TAG, address)
             dashboardView.appbar_dashboard_set_delivery_location_tv.text = address
+        }
+    }
+
+    private fun getLocation() {
+        gpsUtils.getLatLong { lat, long ->
+            Log.i(TAG, "location is $lat + $long")
+
+            var address = LocationUtils.getAddress(activity, lat, long)
+            if (address != null) {
+                Log.i(TAG, address)
+                appbar_dashboard_set_delivery_location_tv.text = address
+            }
         }
     }
 

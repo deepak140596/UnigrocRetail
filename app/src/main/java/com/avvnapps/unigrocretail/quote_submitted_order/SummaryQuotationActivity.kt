@@ -2,6 +2,7 @@ package com.avvnapps.unigrocretail.quote_submitted_order
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FieldValue
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_summary_quotation.*
 
 class SummaryQuotationActivity : AppCompatActivity() {
@@ -55,6 +57,8 @@ class SummaryQuotationActivity : AppCompatActivity() {
                 .setMessage("Go ahead and quote order?")
                 .setPositiveButton("Yes") { dialog, which ->
                     firestoreViewModel.addQuotation(this,orderItem)
+                    Toasty.success(this,"Quotation Successful",Toast.LENGTH_LONG).show()
+                    finish()
                 }.setNegativeButton("Cancel"){ _,_ ->
 
                 }

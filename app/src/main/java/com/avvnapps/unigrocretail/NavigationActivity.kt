@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
+import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -21,9 +22,14 @@ class NavigationActivity : AppCompatActivity() {
     var TAG = "NAV_ACTIVITY"
     lateinit var location: Location
 
+    private lateinit var gpsUtils: GpsUtils
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
+
+        gpsUtils = GpsUtils(this)
 
         askForPermissions()
 
@@ -67,8 +73,7 @@ class NavigationActivity : AppCompatActivity() {
             if(loc != null) {
                 location = loc!!
                 Log.i(TAG,"Location: ${location.latitude}  ${location.longitude}")
-                startFragment(DashboardFragment())
-            }
+           }
         })
     }
 
@@ -89,7 +94,8 @@ class NavigationActivity : AppCompatActivity() {
 
                     //isPermissionAcquired = true
 
-                    updateLocation()
+                   // updateLocation()
+                    getLocation();
 
 
                 }
@@ -100,6 +106,14 @@ class NavigationActivity : AppCompatActivity() {
                     // set empty list view
                 }
             }
+
+        }
+    }
+
+    private fun getLocation() {
+        gpsUtils.getLatLong { lat, long ->
+            Log.i(TAG, "location is $lat + $long")
+            startFragment(DashboardFragment())
 
         }
     }

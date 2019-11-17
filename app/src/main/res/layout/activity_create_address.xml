@@ -92,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_margin="16dp"
+                    android:visibility="gone"
                     android:background="@drawable/button_main_background"
                     android:text="Select Location on Map"
                     android:textColor="@color/color_white" />
@@ -100,24 +101,28 @@
                     android:id="@+id/create_address_is_location_set_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginLeft="16dp"
                     android:checked="false"
                     android:clickable="false"
                     android:text="Location Set" />
+
+
+            <Button
+                    android:id="@+id/create_address_done_fab"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/button_main_background"
+                    android:text="Add delivery address"
+                    android:textColor="@color/color_white" />
+
 
         </LinearLayout>
 
     </ScrollView>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_address_done_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@mipmap/ic_done_white" />
 
 
 </RelativeLayout>
