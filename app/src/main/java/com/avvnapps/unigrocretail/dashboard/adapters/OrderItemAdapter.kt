@@ -55,6 +55,7 @@ class OrderItemAdapter(
             itemView.item_order_id_tv.text = orderItem.orderId.toString()
             itemView.item_order_delivery_pickup_tv.text = OrderUtils.getOrderType(orderItem)
             itemView.item_order_status_tv.text = OrderUtils.getOrderStatus(orderItem.orderStatus)
+
             if (orderItem.orderStatus < ApplicationConstants.ORDER_PICKED_DELIVERED) {
                 itemView.item_order_change_status_btn.text =
                     OrderUtils.getOrderStatus(orderItem.orderStatus + 1)

@@ -4,12 +4,18 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.location.LocationManager
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.avvnapps.unigrocretail.models.AddressItem
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.SphericalUtil
 import java.lang.ref.WeakReference
 
 class GpsUtils {
@@ -136,7 +142,6 @@ class GpsUtils {
     }
 
 
-    @SuppressLint("MissingPermission")
     private fun getLocation() {
 
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->

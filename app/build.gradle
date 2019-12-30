@@ -78,9 +78,9 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.3.0'
 
     // circle image view
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
     // glide
-    implementation 'com.github.bumptech.glide:glide:3.6.1'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
 
     //For Step View
     implementation 'com.shuhart.stepview:stepview:1.2.8'
@@ -106,6 +106,11 @@ dependencies {
 
     // sectional recycler view
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.0.7'
+    //chip navigation
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
 }
 

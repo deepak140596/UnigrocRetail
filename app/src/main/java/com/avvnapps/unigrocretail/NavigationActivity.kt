@@ -33,28 +33,28 @@ class NavigationActivity : AppCompatActivity() {
 
         askForPermissions()
 
-        activity_bottom_nav_view.setOnNavigationItemSelectedListener(mOnBottomNavigationItemSelectedListener)
+        activity_bottom_nav_view.setOnItemSelectedListener{ id ->
+            when (id) {
+                R.id.bottom_navigation_dashboard ->{
+                    //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
+                    startFragment(DashboardFragment())
+                }
+                R.id.bottom_navigation_search ->
+                    Toasty.info(this@NavigationActivity,"Search!").show()
+
+                R.id.bottom_navigation_account ->
+                    Toasty.info(this@NavigationActivity,"Account!").show()
+            }
+        }
+
 
         var user = FirebaseAuth.getInstance().currentUser
         Log.i(TAG,"Name: ${user!!.displayName}  Email: ${user!!.email}  Phone: ${user.phoneNumber}")
+
+        startFragment(DashboardFragment())
+
     }
-
-
-
-    private val mOnBottomNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
-
-        when(it.itemId){
-            R.id.bottom_navigation_dashboard ->{
-                //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
-                startFragment(DashboardFragment())
-            }
-
-            R.id.bottom_navigation_account ->
-                Toasty.info(this@NavigationActivity,"Account!").show()
-        }
-
-        return@OnNavigationItemSelectedListener true
-    }
+    
 
     fun startFragment(fragment : Fragment){
         if(fragment != null){

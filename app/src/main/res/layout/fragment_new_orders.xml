@@ -14,4 +14,15 @@
             android:paddingTop="0dp"
             android:scrollbars="vertical" />
 
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/empty_bag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lottie_fileName="empty_bag.json"
+            app:lottie_loop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:lottie_autoPlay="true"/>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

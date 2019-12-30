@@ -58,6 +58,12 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         firestoreViewModel.getQuotedOrders().observe(this, Observer { orders ->
             Log.i(TAG, "OrdersSize: ${orders.size}")
             submittedOrders = OrderUtils.getLocalOrders(activity, orders)
+
+            if (submittedOrders.isNotEmpty()) {
+                empty_bag.visibility = View.GONE
+            } else
+                empty_bag.visibility = View.VISIBLE
+            //updatedOrder(submittedOrders)
             adapter.submittedOrderList = submittedOrders
             adapter.notifyDataSetChanged()
 
@@ -65,6 +71,14 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 fragment_new_orders_swipe_layout.isRefreshing = false
         })
 
+
+    }
+
+    private fun updatedOrder(savedCartItems: List<OrderItem>) {
+        if (savedCartItems.isNotEmpty()) {
+            empty_bag.visibility = View.GONE
+        } else
+            empty_bag.visibility = View.VISIBLE
 
     }
 

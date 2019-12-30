@@ -34,13 +34,13 @@ class LocationUtils(context: Context){
         return fusedLocationProviderClient!!
     }
 
-
-    @SuppressLint("MissingPermission")
+    var onProgressUpdate: ((show: Boolean) -> Unit)? =
+        null // getting location may take second or two
     fun getLocation() : LiveData<Location> {
-        fusedLocationProviderClient!!.lastLocation
-            .addOnSuccessListener {loc: Location? ->
-                location.value = loc!!
-            }
+        fusedLocationProviderClient?.lastLocation?.addOnSuccessListener { loc: Location? ->
+            onProgressUpdate?.invoke(true)
+            location.value = loc!!
+        }
 
         return location
     }

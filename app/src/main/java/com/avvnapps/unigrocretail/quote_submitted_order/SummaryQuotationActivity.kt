@@ -1,5 +1,6 @@
 package com.avvnapps.unigrocretail.quote_submitted_order
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.avvnapps.unigrocretail.NavigationActivity
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.CartEntity
@@ -58,8 +60,10 @@ class SummaryQuotationActivity : AppCompatActivity() {
                 .setPositiveButton("Yes") { dialog, which ->
                     firestoreViewModel.addQuotation(this,orderItem)
                     Toasty.success(this,"Quotation Successful",Toast.LENGTH_LONG).show()
-                    finish()
-                }.setNegativeButton("Cancel"){ _,_ ->
+                    val intent = Intent(this, NavigationActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }.setNegativeButton("Cancel"){ _, _ ->
 
                 }
 

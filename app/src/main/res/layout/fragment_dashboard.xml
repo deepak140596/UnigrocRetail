@@ -57,7 +57,7 @@
                             android:layout_below="@+id/appbar_dashboard_delivery_to_label_tv"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="Hussainpur, Madurdaha, Kolkata"
+                            android:text="Current Address"
                             android:textColor="@color/color_white"
                             android:textSize="16sp" />
 
@@ -132,7 +132,13 @@
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/appbar_dashboard_tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                android:elevation="0dp"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabIndicatorHeight="3dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
