@@ -44,17 +44,23 @@ class NavigationActivity : AppCompatActivity() {
 
                 R.id.bottom_navigation_account ->
                     Toasty.info(this@NavigationActivity,"Account!").show()
+                else ->{
+                //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
+                startFragment(DashboardFragment())
+            }
             }
         }
+
+
 
 
         var user = FirebaseAuth.getInstance().currentUser
         Log.i(TAG,"Name: ${user!!.displayName}  Email: ${user!!.email}  Phone: ${user.phoneNumber}")
 
-        startFragment(DashboardFragment())
+       // startFragment(DashboardFragment())
 
     }
-    
+
 
     fun startFragment(fragment : Fragment){
         if(fragment != null){
@@ -113,7 +119,8 @@ class NavigationActivity : AppCompatActivity() {
     private fun getLocation() {
         gpsUtils.getLatLong { lat, long ->
             Log.i(TAG, "location is $lat + $long")
-            startFragment(DashboardFragment())
+           // startFragment(DashboardFragment())
+            activity_bottom_nav_view.setItemSelected(R.id.bottom_navigation_dashboard,true)
 
         }
     }

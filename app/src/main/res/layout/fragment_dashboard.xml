@@ -136,7 +136,7 @@
                 app:tabMode="fixed"
                 android:elevation="0dp"
                 app:tabIndicatorColor="@android:color/white"
-                app:tabIndicatorHeight="3dp"
+                app:tabIndicatorHeight="5dp"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

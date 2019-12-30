@@ -5,6 +5,7 @@
 
     <item
             android:id="@+id/bottom_navigation_dashboard"
+            android:enabled="true"
             android:icon="@drawable/ic_home"
             android:title="Dashboard"
             app:cnb_iconColor="@color/dashboard" />
@@ -20,7 +21,7 @@
             android:id="@+id/bottom_navigation_account"
             android:icon="@mipmap/ic_person_black"
             android:title="Account"
-            app:cnb_iconColor="@color/account"/>
+            app:cnb_iconColor="@color/account" />
 
 
 </menu>
