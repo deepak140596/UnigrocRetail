@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.avvnapps.unigrocretail.account_settings.Account
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
 import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
@@ -42,8 +43,11 @@ class NavigationActivity : AppCompatActivity() {
                 R.id.bottom_navigation_search ->
                     Toasty.info(this@NavigationActivity,"Search!").show()
 
-                R.id.bottom_navigation_account ->
+                R.id.bottom_navigation_account ->{
+                    startFragment(Account())
                     Toasty.info(this@NavigationActivity,"Account!").show()
+                }
+
                 else ->{
                 //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
                 startFragment(DashboardFragment())
@@ -68,6 +72,7 @@ class NavigationActivity : AppCompatActivity() {
             fragmentManager.beginTransaction().replace(R.id.activity_nav_frame_layout,fragment,"").commit()
         }
     }
+
 
 
     // observe on location and update accordingly

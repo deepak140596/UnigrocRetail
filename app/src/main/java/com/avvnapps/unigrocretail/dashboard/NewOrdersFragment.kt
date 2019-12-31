@@ -63,6 +63,7 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 empty_bag.visibility = View.GONE
             } else
                 empty_bag.visibility = View.VISIBLE
+
             //updatedOrder(submittedOrders)
             adapter.submittedOrderList = submittedOrders
             adapter.notifyDataSetChanged()
