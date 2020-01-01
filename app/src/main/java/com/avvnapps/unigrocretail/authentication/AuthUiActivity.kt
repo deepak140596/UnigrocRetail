@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.avvnapps.unigrocretail.MainActivity
 import com.avvnapps.unigrocretail.NavigationActivity
+import com.avvnapps.unigrocretail.R
 import com.crashlytics.android.Crashlytics
+import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -18,11 +20,11 @@ import io.fabric.sdk.android.Fabric
 /**
  * Created by Deepak Prasad on 11-02-2019.
  */
-class AuthUiActivity : AppCompatActivity(){
+class AuthUiActivity : AppCompatActivity() {
 
     val RC_SIGN_IN = 1
     val TAG = "AUTH_UI"
-    var mAuth: FirebaseAuth ? = null
+    var mAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -39,26 +41,35 @@ class AuthUiActivity : AppCompatActivity(){
         super.onResume()
         mAuth = FirebaseAuth.getInstance()
         var user = mAuth!!.currentUser
-        if(user==null)
+        if (user == null)
             chooseAuthProviders()
         else
             startPhoneAuthActivity(user)
     }
 
-    fun chooseAuthProviders(){
+    var customLayout = AuthMethodPickerLayout.Builder(R.layout.auth_layout)
+        .setGoogleButtonId(R.id.g_plus)
+        .setEmailButtonId(R.id.emailAuth)
+        .build()
+
+    fun chooseAuthProviders() {
         // Choose authentication providers
         val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build())
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
 
-// Create and launch sign-in intent
+        // Create and launch sign-in intent
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .setIsSmartLockEnabled(false)
-                        .build(),
-                RC_SIGN_IN)
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAuthMethodPickerLayout(customLayout)
+                .setTheme(R.style.GreenTheme)
+                .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false)
+                .build(),
+            RC_SIGN_IN
+        )
     }
 
 
@@ -78,29 +89,28 @@ class AuthUiActivity : AppCompatActivity(){
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                Log.e(TAG,"Sign In Failed. "+response!!.error)
+                Log.e(TAG, "Sign In Failed. " + response!!.error)
             }
         }
     }
 
 
-
-    fun signOut(){
+    fun signOut() {
         AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    // ...
-                }
+            .signOut(this)
+            .addOnCompleteListener {
+                // ...
+            }
     }
 
-    fun startPhoneAuthActivity(user: FirebaseUser? = null){
-        if(user!=null){
-            Log.i(TAG,"Phone Number: ${user.phoneNumber}")
+    fun startPhoneAuthActivity(user: FirebaseUser? = null) {
+        if (user != null) {
+            Log.i(TAG, "Phone Number: ${user.phoneNumber}")
             //Toast.makeText(this,"Signed In",Toast.LENGTH_SHORT).show()
-            if(user.phoneNumber == null || user.phoneNumber.toString().length == 0)
+            if (user.phoneNumber == null || user.phoneNumber.toString().length == 0)
                 startActivity(Intent(this, VerifyPhoneActivity::class.java))
             else
-                startActivity(Intent(this,NavigationActivity::class.java))
+                startActivity(Intent(this, NavigationActivity::class.java))
             finish()
         }
     }

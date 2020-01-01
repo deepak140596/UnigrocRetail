@@ -19,20 +19,24 @@ import com.avvnapps.unigrocretail.utils.OrderUtils
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_new_orders.*
 
-class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
+class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     val TAG = "NEW_ORDERS_FRAG"
 
     lateinit var activity: AppCompatActivity
 
-    var submittedOrders : List<OrderItem> = emptyList()
+    var submittedOrders: List<OrderItem> = emptyList()
     lateinit var firestoreViewModel: FirestoreViewModel
-    lateinit var adapter : SubmittedOrderAdapter
+    lateinit var adapter: SubmittedOrderAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         activity = getActivity() as AppCompatActivity
-        return inflater.inflate(R.layout.fragment_new_orders,container,false)
+        return inflater.inflate(R.layout.fragment_new_orders, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,17 +54,32 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
         fragment_new_orders_swipe_layout.setOnRefreshListener(this)
     }
 
-    private fun initialiseFirestoreViewModel(){
-        firestoreViewModel.getQuotedOrders().observe(this, Observer {orders ->
-            Log.i(TAG,"OrdersSize: ${orders.size}")
-            submittedOrders = OrderUtils.getLocalOrders(activity,orders)
+    private fun initialiseFirestoreViewModel() {
+        firestoreViewModel.getQuotedOrders().observe(this, Observer { orders ->
+            Log.i(TAG, "OrdersSize: ${orders.size}")
+            submittedOrders = OrderUtils.getLocalOrders(activity, orders)
+
+            if (submittedOrders.isNotEmpty()) {
+                empty_bag.visibility = View.GONE
+            } else
+                empty_bag.visibility = View.VISIBLE
+
+            //updatedOrder(submittedOrders)
             adapter.submittedOrderList = submittedOrders
             adapter.notifyDataSetChanged()
 
-            if(fragment_new_orders_swipe_layout.isRefreshing)
+            if (fragment_new_orders_swipe_layout.isRefreshing)
                 fragment_new_orders_swipe_layout.isRefreshing = false
         })
 
+
+    }
+
+    private fun updatedOrder(savedCartItems: List<OrderItem>) {
+        if (savedCartItems.isNotEmpty()) {
+            empty_bag.visibility = View.GONE
+        } else
+            empty_bag.visibility = View.VISIBLE
 
     }
 

@@ -1,5 +1,6 @@
 package com.avvnapps.unigrocretail.location_address
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.AddressItem
+import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
@@ -23,9 +25,13 @@ class CreateAddressActivity : AppCompatActivity() {
     var firestoreViewModel : FirestoreViewModel ?=null
     var addressItem: AddressItem?=null
 
+    private lateinit var gpsUtils: GpsUtils
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_address)
+        gpsUtils = GpsUtils(this)
 
 
         var data = intent.getSerializableExtra("address_item")
@@ -36,9 +42,11 @@ class CreateAddressActivity : AppCompatActivity() {
         }
 
         firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        getLocation()
 
         create_address_set_location_btn.setOnClickListener {
-            createPlacePicker()
+            //createPlacePicker()
+            getLocation()
         }
 
         create_address_done_fab.setOnClickListener {
@@ -59,6 +67,18 @@ class CreateAddressActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun getLocation() {
+
+
+        gpsUtils.getLatLong { lat, long ->
+            Log.i(TAG, "location is $lat + $long")
+            latitutde = lat
+            longitude = long
+
+            create_address_is_location_set_cb.isChecked = true
+        }
     }
 
     fun setupViews(){
@@ -114,6 +134,7 @@ class CreateAddressActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {

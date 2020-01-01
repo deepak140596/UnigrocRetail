@@ -23,4 +23,7 @@
     <string name="hint_no_slots_available">Sorry, no slots available today. \nPlease select another day.</string>
     <string name="cart_items">cart_items</string>
     <string name="selected_order_item">selected_order_item</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,11 +1,14 @@
 package com.avvnapps.unigrocretail.quote_submitted_order
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.avvnapps.unigrocretail.NavigationActivity
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.CartEntity
@@ -17,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FieldValue
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_summary_quotation.*
 
 class SummaryQuotationActivity : AppCompatActivity() {
@@ -55,7 +59,11 @@ class SummaryQuotationActivity : AppCompatActivity() {
                 .setMessage("Go ahead and quote order?")
                 .setPositiveButton("Yes") { dialog, which ->
                     firestoreViewModel.addQuotation(this,orderItem)
-                }.setNegativeButton("Cancel"){ _,_ ->
+                    Toasty.success(this,"Quotation Successful",Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, NavigationActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }.setNegativeButton("Cancel"){ _, _ ->
 
                 }
 

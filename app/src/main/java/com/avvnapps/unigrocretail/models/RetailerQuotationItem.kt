@@ -2,7 +2,7 @@ package com.avvnapps.unigrocretail.models
 
 import java.io.Serializable
 
-class RetailerQuotationItem (var retailerId : String ="",
+data class RetailerQuotationItem (var retailerId : String ="",
                              var retailerName: String = "",
                              var photoUrl : String ="",
                              var quotedPrice: Double = 0.0,

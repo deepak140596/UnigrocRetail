@@ -51,7 +51,7 @@ class ReadyOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
 
     private fun initialiseFirestoreViewModel(){
         firestoreViewModel.getReadyOrders().observe(this, Observer {orders ->
-            Log.i(TAG,"OrdersSize: ${orders.size}")
+            //Log.i(TAG,"OrdersSize: ${orders.size}")
             currentOrders = orders
             adapter.orderList = currentOrders
             adapter.notifyDataSetChanged()
