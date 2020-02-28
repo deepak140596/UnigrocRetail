@@ -1,6 +1,7 @@
 package com.avvnapps.unigrocretail
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.avvnapps.unigrocretail.account_settings.Account
+import com.avvnapps.unigrocretail.authentication.RetailerAddInfo
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
 import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
@@ -40,9 +42,11 @@ class NavigationActivity : AppCompatActivity() {
                     //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
                     startFragment(DashboardFragment())
                 }
-                R.id.bottom_navigation_search ->
-                    Toasty.info(this@NavigationActivity,"Search!").show()
+                R.id.bottom_navigation_search ->{
+                    startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
 
+                   // Toasty.info(this@NavigationActivity,"Search!").show()
+                }
                 R.id.bottom_navigation_account ->{
                     startFragment(Account())
                     Toasty.info(this@NavigationActivity,"Account!").show()

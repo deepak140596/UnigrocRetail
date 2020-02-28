@@ -9,11 +9,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.avvnapps.unigorcretail"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -30,7 +30,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
@@ -43,9 +43,10 @@ dependencies {
 
     //====================================================================================
     // Firebase Core
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
-    implementation 'com.google.firebase:firebase-firestore:18.0.1'
+    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.firebaseui:firebase-ui-auth:6.0.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 
@@ -56,6 +57,7 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
     // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
@@ -83,7 +85,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
 
     //For Step View
-    implementation 'com.shuhart.stepview:stepview:1.2.8'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
     //For PinView EditText
     implementation 'com.chaos.view:pinview:1.3.2'
     //For playing .gif images
@@ -96,7 +98,7 @@ dependencies {
     implementation 'net.rimoto:intlphoneinput:1.0.1'
 
     // Custom Radio Buttons
-    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'\
+    implementation 'com.github.ceryle:RadioRealButton:v2.1.1' \
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -105,13 +107,18 @@ dependencies {
     implementation 'hyogeun.github.com.colorratingbar:ColorRatingBar:1.0.1'
 
     // sectional recycler view
-    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.1.0'
 
     //Lottie
     implementation 'com.airbnb.android:lottie:3.0.7'
     //chip navigation
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
+    //for permission
+    implementation 'com.karumi:dexter:6.0.2'
+    //Crop Image
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'id.zelory:compressor:3.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

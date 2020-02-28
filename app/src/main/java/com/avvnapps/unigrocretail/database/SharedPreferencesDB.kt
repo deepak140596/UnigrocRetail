@@ -23,7 +23,7 @@ class SharedPreferencesDB {
         fun getSavedAddress(context: Context): AddressItem?{
             var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             var json = sharedPreferences.getString(context.getString(R.string.preferred_address),"")
-            if(json.isEmpty())
+            if(json?.isEmpty()!!)
                 return null
             return Gson().fromJson(json, AddressItem::class.java)
         }

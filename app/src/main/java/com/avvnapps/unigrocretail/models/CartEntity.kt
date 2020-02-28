@@ -14,9 +14,11 @@ import java.io.Serializable
  */
 
 @Entity(tableName = "cart_table")
-class CartEntity constructor(itemId: String, name: String , category: String,
-                             clubbedCategory: String , photoUrl: String , quantity: Int,
-                             price: Double, metricWeight: String) : SearchSuggestion,Serializable{
+class CartEntity constructor(
+    itemId: String, name: String, category: String,
+    clubbedCategory: String, photoUrl: String, quantity: Int,
+    price: Double, metricWeight: String
+) : SearchSuggestion, Serializable {
     override fun writeToParcel(dest: Parcel?, flags: Int) {
 
     }
@@ -29,9 +31,9 @@ class CartEntity constructor(itemId: String, name: String , category: String,
         return "$name in $category"
     }
 
-    constructor(parcel : Parcel) :this()
+    constructor(parcel: Parcel) : this()
 
-    constructor():this("","","","","",0,0.0,"")
+    constructor() : this("", "", "", "", "", 0, 0.0, "")
 
     @NonNull
     @PrimaryKey
@@ -59,12 +61,12 @@ class CartEntity constructor(itemId: String, name: String , category: String,
     @ColumnInfo(name = "metric_weight")
     var metricWeight: String = metricWeight
 
-    fun incrementQuantity(){
+    fun incrementQuantity() {
         this.quantity = this.quantity + 1
     }
 
-    fun decrementQuantity(){
-        if(this.quantity > 0)
+    fun decrementQuantity() {
+        if (this.quantity > 0)
             this.quantity = this.quantity - 1
     }
 

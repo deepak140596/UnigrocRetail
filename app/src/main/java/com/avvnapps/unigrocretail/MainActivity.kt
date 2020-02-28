@@ -12,8 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        main_tv.setOnClickListener {
-            startActivity(Intent(this@MainActivity,SavedAddressesActivity::class.java))
-        }
+
     }
 }

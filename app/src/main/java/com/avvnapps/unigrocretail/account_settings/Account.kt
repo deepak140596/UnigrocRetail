@@ -38,41 +38,46 @@ class Account : Fragment() {
         if (user != null) {
             userNametv.setText(user.displayName)
         }
+        setupClickListener()
+
+
+    }
+
+    private fun setupClickListener() {
+
+        change_password.setOnClickListener {
+            val intent = Intent(activity, ChangePassword::class.java)
+            startActivity(intent)
+        }
 
         logOutTv.setOnClickListener {
             logOutAlert()
         }
     }
 
-    fun logOutAlert(){
+    private fun logOutAlert(){
         val builder = AlertDialog.Builder(activity)
-        //set title for alert dialog
         builder.setTitle("Log out")
-        //set message for alert dialog
         builder.setMessage("Do you want to log out?")
         builder.setIcon(R.drawable.ic_logout)
-
-        //performing positive action
         builder.setPositiveButton("Yes"){dialogInterface, which ->
             signOut()
         }
 
-        //performing negative action
         builder.setNegativeButton("No"){dialogInterface, which ->
         }
-        // Create the AlertDialog
         val alertDialog: AlertDialog = builder.create()
-        // Set other dialog properties
-        alertDialog.setCancelable(false)
+        alertDialog.setCancelable(true)
         alertDialog.show()
     }
 
-    fun signOut() {
+   private fun signOut() {
         AuthUI.getInstance()
             .signOut(activity)
             .addOnCompleteListener {
-                val intent = Intent(activity, AuthUiActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                val intent = Intent(activity, AuthUiActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
                 startActivity(intent)
             }
     }

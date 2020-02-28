@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.avvnapps.unigrocretail">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.avvnapps.unigrocretail">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
             android:allowBackup="true"
@@ -15,41 +19,41 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".quote_submitted_order.SummaryQuotationActivity">
-        </activity>
+        <activity android:name=".account_settings.ChangePassword"></activity>
+        <activity android:name=".authentication.RetailerAddInfo" />
+        <activity
+                android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                android:theme="@style/AppTheme" />
+        <activity android:name=".quote_submitted_order.SummaryQuotationActivity" />
         <activity
                 android:name=".quote_submitted_order.CalculateQuotationPriceActivity"
-                android:theme="@style/MaterialTheme">
-        </activity>
+                android:theme="@style/MaterialTheme" />
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
+                android:value="@string/google_maps_key" />
         <meta-data
                 android:name="io.fabric.ApiKey"
-                android:value="43e5f223dec6a731082078ed343284b26320b72b"/>
+                android:value="43e5f223dec6a731082078ed343284b26320b72b" />
 
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity
                 android:name=".location_address.CreateAddressActivity"
-                android:theme="@style/Theme.MaterialComponents">
-        </activity>
-        <activity android:name=".location_address.SavedAddressesActivity">
-        </activity>
+                android:theme="@style/Theme.MaterialComponents" />
+        <activity android:name=".location_address.SavedAddressesActivity" />
         <activity
                 android:name=".authentication.AuthUiActivity"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".authentication.VerifyPhoneActivity"/>
+        <activity android:name=".authentication.VerifyPhoneActivity" />
         <activity
                 android:name=".NavigationActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

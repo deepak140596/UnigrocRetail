@@ -2,10 +2,7 @@ package com.avvnapps.unigrocretail.database.firestore
 
 import android.content.Context
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
-import com.avvnapps.unigrocretail.models.AddressItem
-import com.avvnapps.unigrocretail.models.CartEntity
-import com.avvnapps.unigrocretail.models.OrderItem
-import com.avvnapps.unigrocretail.models.RetailerQuotationItem
+import com.avvnapps.unigrocretail.models.*
 import com.avvnapps.unigrocretail.utils.ApplicationConstants
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -14,9 +11,19 @@ import com.google.firebase.firestore.*
 class FirestoreRepository {
 
     val TAG = "FIREBASE_REPOSITORY"
-    var firestoreDB = FirebaseFirestore.getInstance()
+    val firestoreDB: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
     var user = FirebaseAuth.getInstance().currentUser!!
     var email = user.email.toString()
+
+
+    //save user info
+    fun saveUserInfo(userInfo: UserInfo): Task<Void>{
+        var documentReference = firestoreDB.collection("retailers").document(email)
+
+        return documentReference.set(userInfo,SetOptions.merge())
+    }
 
 
     // get availbale cart items
@@ -53,6 +60,7 @@ class FirestoreRepository {
     }
 
     fun addQuotation(context: Context,order: OrderItem){
+
         var docRef : DocumentReference = FirebaseFirestore.getInstance()
             .collection("orders").document(order.orderId.toString())
 

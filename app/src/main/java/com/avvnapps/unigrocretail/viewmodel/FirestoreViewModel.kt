@@ -5,11 +5,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
-import com.avvnapps.unigrocretail.models.CartEntity
 import com.avvnapps.unigrocretail.database.firestore.FirestoreRepository
-import com.avvnapps.unigrocretail.models.AddressItem
-import com.avvnapps.unigrocretail.models.OrderItem
-import com.avvnapps.unigrocretail.models.RetailerQuotationItem
+import com.avvnapps.unigrocretail.models.*
 import com.avvnapps.unigrocretail.utils.ApplicationConstants
 import com.google.common.collect.Ordering
 import com.google.firebase.auth.FirebaseAuth
@@ -47,6 +44,13 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
 
         return availableCartItems
 
+    }
+
+    // save User Data to firebase
+    fun saveUserData(userInfo: UserInfo){
+        firebaseRepository.saveUserInfo(userInfo).addOnFailureListener {
+            Log.e(TAG,"Failed to save User Data!")
+        }
     }
 
     // save address to firebase

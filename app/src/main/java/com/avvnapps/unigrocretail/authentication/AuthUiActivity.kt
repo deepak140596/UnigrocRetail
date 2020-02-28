@@ -105,6 +105,7 @@ class AuthUiActivity : AppCompatActivity() {
 
     fun startPhoneAuthActivity(user: FirebaseUser? = null) {
         if (user != null) {
+            Log.i(TAG, "User Details: ${user.photoUrl}")
             Log.i(TAG, "Phone Number: ${user.phoneNumber}")
             //Toast.makeText(this,"Signed In",Toast.LENGTH_SHORT).show()
             if (user.phoneNumber == null || user.phoneNumber.toString().length == 0)
