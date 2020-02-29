@@ -5,19 +5,24 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
+import com.avvnapps.unigrocretail.NavigationActivity
 import com.avvnapps.unigrocretail.R
+import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.UserInfo
 import com.avvnapps.unigrocretail.utils.setProgressDialog
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -37,12 +42,13 @@ import java.io.File
 
 
 class RetailerAddInfo : AppCompatActivity() {
+    val TAG = "RETAILERINFO"
 
     var IMAGE_STATUS = false
     private var compressedImage: File? = null
     private var thumb_image: Bitmap? = null
     var user = FirebaseAuth.getInstance().currentUser!!
-    var firestoreViewModel : FirestoreViewModel?=null
+    var firestoreViewModel: FirestoreViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +99,7 @@ class RetailerAddInfo : AppCompatActivity() {
             val shopName = shop_name.text.toString().trim()
 
             if (Validate(shopName) && validateProfile()) {
-                uploadImageAndSaveUri(shopName,thumb_image)
+                uploadImageAndSaveUri(shopName, thumb_image)
             }
 
         }
@@ -126,7 +132,28 @@ class RetailerAddInfo : AppCompatActivity() {
                         shopName
                     )
                     firestoreViewModel?.saveUserData(userValues)
-                    dialog.dismiss()
+
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setPhotoUri(Uri.parse(profile_pic))
+                        .build()
+
+                    user.updateProfile(profileUpdates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                SharedPreferencesDB.savePreferredUser(this, userValues)
+                                dialog.dismiss()
+
+                                val intent = Intent(this, NavigationActivity::class.java).apply {
+                                    flags =
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                                startActivity(intent)
+                                Log.d(TAG, "User profile updated.")
+                            } else {
+                                Log.d(TAG, "User profile is not updated.")
+
+                            }
+                        }
 
                 }
             } else {

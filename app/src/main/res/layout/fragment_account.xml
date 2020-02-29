@@ -5,9 +5,7 @@
         android:orientation="vertical"
         tools:context="com.avvnapps.unigrocretail.account_settings.Account">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_white"
@@ -24,6 +22,7 @@
                     android:text="Settings" />
 
             <RelativeLayout
+                    android:id="@+id/profile_details_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
@@ -36,8 +35,8 @@
                         android:layout_height="60dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_profile"
-                        app:civ_border_color="@color/imageBorderColor"
+                        android:src="@drawable/user_placeholder"
+                        app:civ_border_color="@color/grey_light"
                         app:civ_border_width="2dp" />
 
                 <TextView
@@ -52,7 +51,7 @@
                         style="@style/viewParent.headerText"
                         android:layout_below="@id/userNametv"
                         android:layout_toRightOf="@id/profileCircleImageView"
-                        android:text="Edit personal details"
+                        android:text="Store details"
                         android:textColor="#5D5C5C"
                         android:textSize="16sp" />
 
@@ -79,11 +78,11 @@
 
             <TextView
                     android:id="@+id/change_password"
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:layout_marginTop="10dp"
                     android:background="?selectableItemBackground"
                     android:checked="true"
                     android:clickable="true"
-                    style="@style/viewParent.headerText.settingsTextIcon"
-                    android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/ic_edit_password"
                     android:text="Change Password" />
 
@@ -100,7 +99,15 @@
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
-                    android:text="Regional" />
+                    android:text="Application Preferences" />
+
+            <TextView
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_help_24dp"
+                    android:focusable="true"
+                    android:text="Help &amp; Support" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsTextIcon"

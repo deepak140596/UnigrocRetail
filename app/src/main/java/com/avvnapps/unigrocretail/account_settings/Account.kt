@@ -35,15 +35,21 @@ class Account : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var user = FirebaseAuth.getInstance().currentUser
 
-        if (user != null) {
-            userNametv.setText(user.displayName)
-        }
+
+        userNametv.text =
+            user?.displayName ?: throw IllegalArgumentException("not found name") as Throwable
+
         setupClickListener()
 
 
     }
 
     private fun setupClickListener() {
+
+        profile_details_rl.setOnClickListener {
+            val intent = Intent(activity, ShopProfile::class.java)
+            startActivity(intent)
+        }
 
         change_password.setOnClickListener {
             val intent = Intent(activity, ChangePassword::class.java)
@@ -55,23 +61,23 @@ class Account : Fragment() {
         }
     }
 
-    private fun logOutAlert(){
+    private fun logOutAlert() {
         val builder = AlertDialog.Builder(activity)
         builder.setTitle("Log out")
         builder.setMessage("Do you want to log out?")
         builder.setIcon(R.drawable.ic_logout)
-        builder.setPositiveButton("Yes"){dialogInterface, which ->
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
             signOut()
         }
 
-        builder.setNegativeButton("No"){dialogInterface, which ->
+        builder.setNegativeButton("No") { dialogInterface, which ->
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(true)
         alertDialog.show()
     }
 
-   private fun signOut() {
+    private fun signOut() {
         AuthUI.getInstance()
             .signOut(activity)
             .addOnCompleteListener {

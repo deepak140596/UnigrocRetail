@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -37,7 +38,7 @@ class ReadyOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
         super.onViewCreated(view, savedInstanceState)
 
         // initialise Firestore VM
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         initialiseFirestoreViewModel()
 
         fragment_current_orders_recycler_view.layoutManager = LinearLayoutManager(activity)

@@ -18,6 +18,7 @@
     <string name="title_activity_review_cart">Review Cart</string>
     <string name="action_settings">Settings</string>
     <string name="_8942">⋮</string>
+    <string name="preferred_user">preferred_user</string>
     <string name="preferred_address">preferred_address</string>
     <string name="hint_select_default_address">Please Select a Address</string>
     <string name="hint_no_slots_available">Sorry, no slots available today. \nPlease select another day.</string>

@@ -70,7 +70,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
         }
 
         activity_verify_done_btn.setOnClickListener {
-            startActivity(Intent(this@VerifyPhoneActivity, NavigationActivity::class.java))
+            startActivity(Intent(this@VerifyPhoneActivity, RetailerAddInfo::class.java))
             finish()
         }
 
@@ -199,7 +199,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                 activity_verify_progress_bar.visibility = View.GONE
             }
             .addOnFailureListener {
-                Log.e(TAG, "Failed to verify Phone!")
+                Log.e(TAG, "Failed to verify Phone! + ${it.message}")
                 gotoStepOne()
                 activity_verify_progress_bar.visibility = View.GONE
                 Toasty.error(

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/md_grey_100">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/toolbarwrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/profile_toolbar"
+                android:layout_width="fill_parent"
+                android:layout_height="58dp"
+                android:background="@color/colorPrimary"
+                android:minHeight="?attr/actionBarSize">
+
+            <com.avvnapps.unigrocretail.Font.LatoBLack
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store Profile"
+                    android:textColor="@color/color_white"
+                    android:textSize="20sp" />
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:contentDescription="Notification"
+                        android:src="@drawable/notification"
+                        android:tint="@color/color_white" />
+
+
+                <ImageView
+                        android:id="@+id/cart_profile"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:backgroundTint="@color/color_white"
+                        android:contentDescription="Cart"
+                        android:src="@drawable/cart"
+                        android:tint="@color/color_white" />
+
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbarwrap"
+            android:scrollbars="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <View
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                        android:id="@+id/rl_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:gravity="left"
+                        android:padding="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_pic"
+                            android:layout_width="140dp"
+                            android:layout_height="140dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="30dp"
+                            android:elevation="5dp"
+                            android:src="@drawable/user_placeholder"
+                            android:visibility="visible"
+                            app:civ_border_color="@color/color_white"
+                            app:civ_border_width="1dp" />
+
+                    <com.avvnapps.unigrocretail.Font.LatoBLack
+                            android:id="@+id/shop_Name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="78dp"
+                            android:layout_toRightOf="@+id/profile_pic"
+                            android:background="@color/color_white"
+                            android:elevation="5dp"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+
+                </RelativeLayout>
+
+                <com.avvnapps.unigrocretail.Font.LatoBLack
+                        android:id="@+id/owner_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_profile"
+                        android:layout_centerInParent="true"
+                        android:text="Owner Name"
+                        android:textColor="@color/color_black"
+                        android:textSize="20sp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/owner_name_tv"
+                        android:layout_centerInParent="true"
+                        android:text="(Owner)"
+                        android:textColor="@color/md_grey_600"
+                        android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/grey_light" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/mail"
+                        android:tint="@color/colorPrimary" />
+
+                <com.avvnapps.unigrocretail.Font.LatoBLack
+                        android:id="@+id/email_view_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="30dp"
+                        android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey_light" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp">
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/smartphone"
+                        android:tint="@color/colorPrimary" />
+
+                <com.avvnapps.unigrocretail.Font.LatoBLack
+                        android:id="@+id/phone_no_view_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="30dp"
+                        android:textColor="#424242" />
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey_light" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp">
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/profile_details_change_address_btn"
+                        android:orientation="vertical">
+
+                    <com.avvnapps.unigrocretail.Font.LatoBLack
+                            android:id="@+id/delivery_details_address_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Home"
+                            android:textSize="16sp" />
+
+                    <TextView
+                            android:id="@+id/store_address_one_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:id="@+id/store_address_two_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    <TextView
+                            android:id="@+id/store_landmark_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/profile_details_change_address_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/add_to_cart_btn_background"
+                        android:text="Change"
+                        android:textColor="@color/color_white" />
+
+            </RelativeLayout>
+
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/grey_light" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

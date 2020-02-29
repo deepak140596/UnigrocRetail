@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +36,7 @@ class SavedAddressesActivity : AppCompatActivity() {
         )
 
         // initialise firestore view model and adapter
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         savedAddresses = ArrayList<AddressItem>()
         adapter = AddressItemAdapter(this@SavedAddressesActivity as AppCompatActivity,savedAddresses,firestoreViewModel!!,isSelectableAction)
         activity_saved_add_rv.adapter = adapter

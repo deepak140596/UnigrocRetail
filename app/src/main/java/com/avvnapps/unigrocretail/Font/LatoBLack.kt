@@ -1,9 +1,11 @@
 package com.avvnapps.unigrocretail.Font
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 
+@SuppressLint("AppCompatCustomView")
 class LatoBLack : TextView {
 
     constructor(context: Context) : super(context) {

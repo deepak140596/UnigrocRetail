@@ -52,7 +52,7 @@ class DashboardFragment : Fragment() {
         // get user location and pass to geocoder for address
         LocationUtils(activity).getLocation().observe(activity, Observer { loc: Location? ->
             if (loc != null) {
-                location = loc!!
+                location = loc
                 //updateAddress()
                 getLocation()
             }

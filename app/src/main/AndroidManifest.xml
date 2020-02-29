@@ -19,7 +19,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".account_settings.ChangePassword"></activity>
+        <activity
+                android:name=".account_settings.ShopProfile"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".account_settings.ChangePassword" />
         <activity android:name=".authentication.RetailerAddInfo" />
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
