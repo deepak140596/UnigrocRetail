@@ -85,10 +85,10 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
     // circle image view
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //For Step View
     implementation 'com.shuhart.stepview:stepview:1.5.1'
     //For PinView EditText
@@ -106,7 +106,7 @@ dependencies {
     implementation 'com.github.ceryle:RadioRealButton:v2.1.1' \
 
     // GSON
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     // Rating view
     implementation 'hyogeun.github.com.colorratingbar:ColorRatingBar:1.0.1'
@@ -115,7 +115,7 @@ dependencies {
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.1.0'
 
     //Lottie
-    implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation 'com.airbnb.android:lottie:3.3.1'
     //chip navigation
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 

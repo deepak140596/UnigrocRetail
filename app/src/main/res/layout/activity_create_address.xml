@@ -6,9 +6,25 @@
         android:layout_height="match_parent"
         tools:context=".location_address.CreateAddressActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/addressToolwrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="Add Address"
+                app:titleTextColor="@color/color_white">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/addressToolwrap">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -92,20 +108,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_margin="16dp"
-                    android:visibility="gone"
                     android:background="@drawable/button_main_background"
                     android:text="Select Location on Map"
-                    android:textColor="@color/color_white" />
+                    android:textColor="@color/color_white"
+                    android:visibility="gone" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/create_address_is_location_set_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginLeft="16dp"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Location Set" />
+                    android:text="Location Set"
+                    android:visibility="gone" />
 
 
             <Button
@@ -114,15 +130,13 @@
                     android:layout_height="56dp"
                     android:layout_margin="16dp"
                     android:background="@drawable/button_main_background"
-                    android:text="Add delivery address"
+                    android:text="Add address"
                     android:textColor="@color/color_white" />
 
 
         </LinearLayout>
 
     </ScrollView>
-
-
 
 
 </RelativeLayout>

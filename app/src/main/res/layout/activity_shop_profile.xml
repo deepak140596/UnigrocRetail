@@ -32,14 +32,6 @@
                     android:gravity="right"
                     android:orientation="horizontal">
 
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="15dp"
-                        android:contentDescription="Notification"
-                        android:src="@drawable/notification"
-                        android:tint="@color/color_white" />
 
 
                 <ImageView
@@ -213,55 +205,6 @@
                     android:layout_marginTop="2dp"
                     android:background="@color/grey_light" />
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp">
-
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/profile_details_change_address_btn"
-                        android:orientation="vertical">
-
-                    <com.avvnapps.unigrocretail.Font.LatoBLack
-                            android:id="@+id/delivery_details_address_name_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Home"
-                            android:textSize="16sp" />
-
-                    <TextView
-                            android:id="@+id/store_address_one_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    <TextView
-                            android:id="@+id/store_address_two_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    <TextView
-                            android:id="@+id/store_landmark_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp" />
-                </LinearLayout>
-
-                <Button
-                        android:id="@+id/profile_details_change_address_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="16dp"
-                        android:background="@drawable/add_to_cart_btn_background"
-                        android:text="Change"
-                        android:textColor="@color/color_white" />
-
-            </RelativeLayout>
 
 
             <View

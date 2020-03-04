@@ -51,6 +51,11 @@ class Account : Fragment() {
             startActivity(intent)
         }
 
+        edit_profile_tv.setOnClickListener {
+            val intent = Intent(activity, EditProfile::class.java)
+            startActivity(intent)
+        }
+
         change_password.setOnClickListener {
             val intent = Intent(activity, ChangePassword::class.java)
             startActivity(intent)

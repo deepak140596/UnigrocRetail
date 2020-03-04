@@ -20,8 +20,13 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
+                android:name=".account_settings.EditProfile"
+                android:theme="@style/MaterialTheme">
+
+        </activity>
+        <activity
                 android:name=".account_settings.ShopProfile"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".account_settings.ChangePassword" />
         <activity android:name=".authentication.RetailerAddInfo" />
         <activity
@@ -42,7 +47,7 @@
         <activity android:name=".MainActivity" />
         <activity
                 android:name=".location_address.CreateAddressActivity"
-                android:theme="@style/Theme.MaterialComponents" />
+                android:theme="@style/MaterialTheme" />
         <activity android:name=".location_address.SavedAddressesActivity" />
         <activity
                 android:name=".authentication.AuthUiActivity"

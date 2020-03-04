@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
@@ -41,7 +42,7 @@ class CreateAddressActivity : AppCompatActivity() {
             setupViews()
         }
 
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         getLocation()
 
         create_address_set_location_btn.setOnClickListener {

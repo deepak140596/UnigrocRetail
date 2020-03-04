@@ -51,9 +51,16 @@ class CurrentOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
     }
 
     private fun initialiseFirestoreViewModel(){
-        firestoreViewModel.getCurrentOrders().observe(this, Observer {orders ->
+        firestoreViewModel.getCurrentOrders().observe(viewLifecycleOwner, Observer { orders ->
             Log.i(TAG,"OrdersSize: ${orders.size}")
             currentOrders = orders
+            if (currentOrders.isNullOrEmpty()) {
+                no_current_orders_tv.visibility = View.VISIBLE
+                fragment_current_orders_recycler_view.visibility = View.GONE
+            } else {
+                no_current_orders_tv.visibility = View.GONE
+                fragment_current_orders_recycler_view.visibility = View.VISIBLE
+            }
             adapter.orderList = currentOrders
             adapter.notifyDataSetChanged()
 

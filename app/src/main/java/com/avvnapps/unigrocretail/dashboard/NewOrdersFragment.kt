@@ -56,14 +56,17 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     private fun initialiseFirestoreViewModel() {
-        firestoreViewModel.getQuotedOrders().observe(this, Observer { orders ->
+        firestoreViewModel.getQuotedOrders().observe(viewLifecycleOwner, Observer { orders ->
             Log.i(TAG, "OrdersSize: ${orders.size}")
             submittedOrders = OrderUtils.getLocalOrders(activity, orders)
 
-            if (submittedOrders.isNotEmpty()) {
-                empty_bag.visibility = View.GONE
-            } else
-                empty_bag.visibility = View.VISIBLE
+            if (submittedOrders.isNullOrEmpty()) {
+                no_new_orders_tv.visibility = View.VISIBLE
+                fragment_new_orders_recycler_view.visibility = View.GONE
+            } else {
+                no_new_orders_tv.visibility = View.GONE
+                fragment_new_orders_recycler_view.visibility = View.VISIBLE
+            }
 
             //updatedOrder(submittedOrders)
             adapter.submittedOrderList = submittedOrders
@@ -76,13 +79,6 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     }
 
-    private fun updatedOrder(savedCartItems: List<OrderItem>) {
-        if (savedCartItems.isNotEmpty()) {
-            empty_bag.visibility = View.GONE
-        } else
-            empty_bag.visibility = View.VISIBLE
-
-    }
 
     override fun onRefresh() {
         initialiseFirestoreViewModel()

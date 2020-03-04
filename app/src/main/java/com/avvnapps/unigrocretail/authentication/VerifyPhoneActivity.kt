@@ -49,7 +49,6 @@ class VerifyPhoneActivity : AppCompatActivity() {
 
         initializeOtpCallback()
 
-        Log.i(TAG, FirebaseAuth.getInstance().currentUser!!.displayName)
 
         // send OTP btn
         activity_send_otp_btn.setOnClickListener {
