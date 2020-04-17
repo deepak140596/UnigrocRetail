@@ -2,11 +2,10 @@ package com.avvnapps.unigrocretail.location_address
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.AddressItem

@@ -1,24 +1,30 @@
 package com.avvnapps.unigrocretail
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.androidfung.geoip.GeoIpService
+import com.androidfung.geoip.ServicesManager
+import com.androidfung.geoip.model.GeoIpResponseModel
 import com.avvnapps.unigrocretail.account_settings.Account
-import com.avvnapps.unigrocretail.authentication.RetailerAddInfo
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
+import com.avvnapps.unigrocretail.database.SharedPreferencesDB
+import com.avvnapps.unigrocretail.models.GeoIp
 import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_navigation.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -34,6 +40,40 @@ class NavigationActivity : AppCompatActivity() {
 
         gpsUtils = GpsUtils(this)
 
+        val ipApiService: GeoIpService = ServicesManager.getGeoIpService()
+        ipApiService.geoIp.enqueue(object : Callback<GeoIpResponseModel?> {
+            override fun onResponse(
+                call: Call<GeoIpResponseModel?>,
+                response: Response<GeoIpResponseModel?>
+            ) {
+                val countryName: String = response.body()!!.countryName
+                val currency: String = response.body()!!.currency
+                val country: String = response.body()!!.country
+                val latitude: Double = response.body()!!.latitude
+                val longtidue: Double = response.body()!!.longitude
+                val isp: String = response.body()!!.ip
+
+                var GeoIpValues = GeoIp(
+                    countryName,
+                    "GBP",
+                    country,
+                    latitude,
+                    longtidue,
+                    isp
+                )
+                Log.e(TAG, "Country Currency : $currency")
+                SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
+
+            }
+
+            override fun onFailure(call: Call<GeoIpResponseModel?>?, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+
+        })
+
+
         askForPermissions()
 
         activity_bottom_nav_view.setOnItemSelectedListener{ id ->
@@ -43,9 +83,9 @@ class NavigationActivity : AppCompatActivity() {
                     startFragment(DashboardFragment())
                 }
                 R.id.bottom_navigation_search ->{
-                    startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
+                    //  startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
 
-                   // Toasty.info(this@NavigationActivity,"Search!").show()
+                    Toasty.info(this@NavigationActivity, "Search!").show()
                 }
                 R.id.bottom_navigation_account ->{
                     startFragment(Account())
@@ -63,10 +103,10 @@ class NavigationActivity : AppCompatActivity() {
 
 
         var user = FirebaseAuth.getInstance().currentUser
-        Log.i(TAG,"Name: ${user!!.displayName}  Email: ${user!!.email}  Phone: ${user.phoneNumber}")
+        Log.i(TAG, "Name: ${user!!.displayName}  Email: ${user.email}  Phone: ${user.phoneNumber}")
 
        // startFragment(DashboardFragment())
-
+        getLocation()
     }
 
 
@@ -86,7 +126,7 @@ class NavigationActivity : AppCompatActivity() {
 
 
             if(loc != null) {
-                location = loc!!
+                location = loc
                 Log.i(TAG,"Location: ${location.latitude}  ${location.longitude}")
            }
         })
@@ -110,7 +150,7 @@ class NavigationActivity : AppCompatActivity() {
                     //isPermissionAcquired = true
 
                    // updateLocation()
-                    getLocation();
+                    getLocation()
 
 
                 }

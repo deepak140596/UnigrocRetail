@@ -3,16 +3,18 @@ package com.avvnapps.unigrocretail.account_settings
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.fragment.app.Fragment
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.authentication.AuthUiActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -37,7 +39,22 @@ class Account : Fragment() {
 
 
         userNametv.text =
-            user?.displayName ?: throw IllegalArgumentException("not found name") as Throwable
+            user?.displayName ?: throw IllegalArgumentException("not found name")
+
+        val options: RequestOptions = RequestOptions()
+            .centerCrop()
+            .placeholder(R.drawable.user_placeholder)
+            .error(R.drawable.user_placeholder)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .priority(Priority.HIGH)
+            .dontAnimate()
+            .dontTransform()
+
+        Glide.with(this)
+            .applyDefaultRequestOptions(options)
+            .load(user.photoUrl)
+            .into(profileCircleImageView)
+
 
         setupClickListener()
 

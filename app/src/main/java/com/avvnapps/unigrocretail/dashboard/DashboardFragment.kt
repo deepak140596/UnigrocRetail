@@ -99,7 +99,7 @@ class DashboardFragment : Fragment() {
         if (requestCode == SET_ADDRESS_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 location.latitude = data!!.extras!!.getDouble("latitude")
-                location.longitude = data!!.extras!!.getDouble("longitude")
+                location.longitude = data.extras!!.getDouble("longitude")
                 updateAddress()
             }
         }

@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.dashboard.adapters.SubmittedOrderAdapter
 import com.avvnapps.unigrocretail.models.OrderItem
-import com.avvnapps.unigrocretail.utils.LocationUtils
 import com.avvnapps.unigrocretail.utils.OrderUtils
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
 import kotlinx.android.synthetic.main.fragment_new_orders.*

@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import es.dmoral.toasty.Toasty
 
 //Success Toast
@@ -65,4 +66,13 @@ fun setProgressDialog(context: Context, message:String):AlertDialog {
         dialog.window?.attributes = layoutParams
     }
     return dialog
+}
+
+fun circularProgressDrawable(context: Context): CircularProgressDrawable {
+    val circularProgressDrawable = CircularProgressDrawable(context)
+    circularProgressDrawable.strokeWidth = 5f
+    circularProgressDrawable.centerRadius = 30f
+    circularProgressDrawable.start()
+
+    return circularProgressDrawable
 }

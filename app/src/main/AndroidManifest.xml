@@ -40,9 +40,7 @@
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key" />
-        <meta-data
-                android:name="io.fabric.ApiKey"
-                android:value="43e5f223dec6a731082078ed343284b26320b72b" />
+
 
         <activity android:name=".MainActivity" />
         <activity

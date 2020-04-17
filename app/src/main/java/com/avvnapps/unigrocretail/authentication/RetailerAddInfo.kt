@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.avvnapps.unigrocretail.NavigationActivity
 import com.avvnapps.unigrocretail.R
@@ -199,7 +198,7 @@ class RetailerAddInfo : AppCompatActivity() {
                         }
 
                     }
-                } ?: showError("Please choose an image!")
+                }
 
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -228,7 +227,7 @@ class RetailerAddInfo : AppCompatActivity() {
         var check = true
         if (check) {
             if (shopName.isEmpty()) {
-                shop_name.setError("Cannot Be Empty")
+                shop_name.error = "Cannot Be Empty"
                 check = false
             }
         } else {
