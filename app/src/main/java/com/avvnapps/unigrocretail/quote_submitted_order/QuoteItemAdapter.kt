@@ -34,6 +34,7 @@ class QuoteItemAdapter(var context: Context, var cartItems: List<CartEntity>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.setIsRecyclable(false)
         val cartItem = cartItems[position]
         holder.bindItems(context, cartItem)
@@ -41,23 +42,23 @@ class QuoteItemAdapter(var context: Context, var cartItems: List<CartEntity>) :
         holder.itemView.item_cart_price_pu_et.tag = position
 
         if (cartItem.price != 0.0) {
-            val convetedPrice = PriceFormatter.getFormattedPrice(context, cartItem.price)
-            var string = convetedPrice.replace(("[^\\d.]").toRegex(), "")
+            val convertedPrice = PriceFormatter.getFormattedPrice(context, cartItem.price)
+            var string = convertedPrice.replace(("[^\\d.]").toRegex(), "")
             holder.itemView.item_cart_price_pu_et.setText(string)
         } else if (cartItem.price == 0.0)
             holder.itemView.item_cart_price_pu_et.setText("")
 
 
         holder.itemView.item_cart_price_pu_et.onTextChanged {
+
             var text = it
             if (it.isEmpty())
                 text = "0"
 
-            var pricePerUnit = text.toDouble()
             holder.itemView.item_cart_total_price_tv.text =
-                PriceFormatter.getFormattedPrice(context, pricePerUnit * cartItem.quantity)
-            cartItems[position].price = pricePerUnit
-            cartItem.price = pricePerUnit
+                (PriceFormatter.getCurrencySymbol(context) + text.toDouble() * cartItem.quantity)
+            cartItems[position].price = PriceFormatter.getDefaultPrice(context, text.toDouble())
+            cartItem.price = PriceFormatter.getDefaultPrice(context, text.toDouble())
 
             Log.d(TAG, "PRICE: ${cartItem.price}")
         }

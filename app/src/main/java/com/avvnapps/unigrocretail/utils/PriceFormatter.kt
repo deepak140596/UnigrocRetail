@@ -8,7 +8,7 @@ import de.tobiasschuerg.money.Money
 class PriceFormatter {
 
     // equivalent to static scope
-    companion object{
+    companion object {
         val CURRENCY_SYMBOL = "₹"
 
         var CURRENCY_FORMAT = " %.2f"
@@ -19,11 +19,22 @@ class PriceFormatter {
         val usd = Currency("USD", "USD", 0.013)
         val gbr = Currency("GBP", "GBP", 0.010)
 
-        fun getCurrencySymbol():String{
+        fun getCurrencySymbol(context: Context): String {
+            var geoipVal = SharedPreferencesDB.getSavedGeoIp(context)
+            if (geoipVal!!.currency == "EUR") {
+                return "€"
+            }
+            if (geoipVal.currency == "USD") {
+                return "$"
+            }
+            if (geoipVal.currency == "GBP") {
+                return "£"
+
+            }
             return CURRENCY_SYMBOL
         }
 
-        fun getCurrencyFormat():String{
+        fun getCurrencyFormat(): String {
             return CURRENCY_FORMAT
         }
 
@@ -41,6 +52,27 @@ class PriceFormatter {
             }
 
             return CURRENCY_SYMBOL + String.format(CURRENCY_FORMAT, price)
+        }
+
+        fun getDefaultPrice(context: Context, price: Double): Double {
+
+            val usdPrice = Money(price, usd)
+            val euroPrice = Money(price, euro)
+            val gbrPrice = Money(price, gbr)
+
+            if (getCurrencySymbol(context) == "€") {
+                val defPrice = euroPrice.convertInto(inr).toString()
+                return defPrice.replace(("[^\\d.]").toRegex(), "").toDouble()
+            }
+            if (getCurrencySymbol(context) == "£") {
+                val defPrice = gbrPrice.convertInto(inr).toString()
+                return defPrice.replace(("[^\\d.]").toRegex(), "").toDouble()
+            }
+            if (getCurrencySymbol(context) == "$") {
+                val defPrice = usdPrice.convertInto(inr).toString()
+                return defPrice.replace(("[^\\d.]").toRegex(), "").toDouble()
+            }
+            return price
         }
     }
 
