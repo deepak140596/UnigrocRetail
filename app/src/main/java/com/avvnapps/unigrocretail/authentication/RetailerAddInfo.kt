@@ -19,9 +19,11 @@ import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.UserInfo
 import com.avvnapps.unigrocretail.utils.setProgressDialog
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -122,37 +124,53 @@ class RetailerAddInfo : AppCompatActivity() {
         upload.addOnCompleteListener { uploadTask ->
             if (uploadTask.isSuccessful) {
                 storageRef.downloadUrl.addOnCompleteListener { urlTask ->
-                    var profile_pic = urlTask.result.toString()
-                    var userValues = UserInfo(
-                        user.displayName.toString(),
-                        user.email.toString(),
-                        user.phoneNumber.toString(),
-                        profile_pic,
-                        shopName
-                    )
-                    firestoreViewModel?.saveUserData(userValues)
-
-                    val profileUpdates = UserProfileChangeRequest.Builder()
-                        .setPhotoUri(Uri.parse(profile_pic))
-                        .build()
-
-                    user.updateProfile(profileUpdates)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                SharedPreferencesDB.savePreferredUser(this, userValues)
-                                dialog.dismiss()
-
-                                val intent = Intent(this, NavigationActivity::class.java).apply {
-                                    flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                }
-                                startActivity(intent)
-                                Log.d(TAG, "User profile updated.")
-                            } else {
-                                Log.d(TAG, "User profile is not updated.")
-
+                    FirebaseInstanceId.getInstance().instanceId
+                        .addOnCompleteListener(OnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                Log.w(TAG, "getInstanceId failed", task.exception)
+                                return@OnCompleteListener
                             }
-                        }
+
+                            // Get new Instance ID token
+                            val token = task.result?.token.toString()
+
+                            // Log and toast
+                            Log.d(TAG, "tokenID $token")
+                            var profile_pic = urlTask.result.toString()
+                            var userValues = UserInfo(
+                                user.displayName.toString(),
+                                user.email.toString(),
+                                user.phoneNumber.toString(),
+                                profile_pic,
+                                shopName,
+                                token
+                            )
+                            firestoreViewModel?.saveUserData(userValues)
+
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                .setPhotoUri(Uri.parse(profile_pic))
+                                .build()
+
+                            user.updateProfile(profileUpdates)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        SharedPreferencesDB.savePreferredUser(this, userValues)
+                                        dialog.dismiss()
+
+                                        val intent =
+                                            Intent(this, NavigationActivity::class.java).apply {
+                                                flags =
+                                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            }
+                                        startActivity(intent)
+                                        Log.d(TAG, "User profile updated.")
+                                    } else {
+                                        Log.d(TAG, "User profile is not updated.")
+
+                                    }
+                                }
+                        })
+
 
                 }
             } else {

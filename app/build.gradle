@@ -45,14 +45,18 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "androidx.preference:preference-ktx:1.1.1"
+    implementation 'android.arch.work:work-runtime:1.0.1'
+    implementation 'com.google.guava:guava:27.0.1-android'
     //====================================================================================
     // Firebase Core
     implementation 'com.google.firebase:firebase-core:17.2.2'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-
+    // FCM
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
+    implementation 'com.google.firebase:firebase-iid:20.1.5'
     //====================================================================================
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"

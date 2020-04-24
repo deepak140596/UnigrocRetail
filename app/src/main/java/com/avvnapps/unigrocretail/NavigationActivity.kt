@@ -40,40 +40,6 @@ class NavigationActivity : AppCompatActivity() {
 
         gpsUtils = GpsUtils(this)
 
-        val ipApiService: GeoIpService = ServicesManager.getGeoIpService()
-        ipApiService.geoIp.enqueue(object : Callback<GeoIpResponseModel?> {
-            override fun onResponse(
-                call: Call<GeoIpResponseModel?>,
-                response: Response<GeoIpResponseModel?>
-            ) {
-                val countryName: String = response.body()!!.countryName
-                val currency: String = response.body()!!.currency
-                val country: String = response.body()!!.country
-                val latitude: Double = response.body()!!.latitude
-                val longtidue: Double = response.body()!!.longitude
-                val isp: String = response.body()!!.ip
-
-                var GeoIpValues = GeoIp(
-                    countryName,
-                    "GBP",
-                    country,
-                    latitude,
-                    longtidue,
-                    isp
-                )
-                Log.e(TAG, "Country Currency : $currency")
-                SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
-
-            }
-
-            override fun onFailure(call: Call<GeoIpResponseModel?>?, t: Throwable) {
-                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-
-        })
-
-
         askForPermissions()
 
         activity_bottom_nav_view.setOnItemSelectedListener{ id ->
@@ -169,6 +135,38 @@ class NavigationActivity : AppCompatActivity() {
         gpsUtils.getLatLong { lat, long ->
             Log.i(TAG, "location is $lat + $long")
            // startFragment(DashboardFragment())
+            val ipApiService: GeoIpService = ServicesManager.getGeoIpService()
+            ipApiService.geoIp.enqueue(object : Callback<GeoIpResponseModel?> {
+                override fun onResponse(
+                    call: Call<GeoIpResponseModel?>,
+                    response: Response<GeoIpResponseModel?>
+                ) {
+                    val countryName: String = response.body()!!.countryName
+                    val currency: String = response.body()!!.currency
+                    val country: String = response.body()!!.country
+                    val latitude: Double = response.body()!!.latitude
+                    val longtidue: Double = response.body()!!.longitude
+                    val isp: String = response.body()!!.ip
+
+                    var GeoIpValues = GeoIp(
+                        countryName,
+                        currency,
+                        country,
+                        lat,
+                        long,
+                        isp
+                    )
+                    Log.e(TAG, "Country Currency : $currency")
+                    SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
+
+                }
+
+                override fun onFailure(call: Call<GeoIpResponseModel?>?, t: Throwable) {
+                    Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+
+            })
             activity_bottom_nav_view.setItemSelected(R.id.bottom_navigation_dashboard,true)
 
         }

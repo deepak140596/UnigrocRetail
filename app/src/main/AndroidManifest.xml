@@ -20,10 +20,17 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".account_settings.EditProfile"
-                android:theme="@style/MaterialTheme">
+                android:name=".SplashActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+                android:name=".account_settings.EditProfile"
+                android:theme="@style/MaterialTheme"></activity>
         <activity
                 android:name=".account_settings.ShopProfile"
                 android:theme="@style/AppTheme.NoActionBar" />
@@ -41,7 +48,6 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key" />
 
-
         <activity android:name=".MainActivity" />
         <activity
                 android:name=".location_address.CreateAddressActivity"
@@ -50,16 +56,24 @@
         <activity
                 android:name=".authentication.AuthUiActivity"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".authentication.VerifyPhoneActivity" />
         <activity
                 android:name=".NavigationActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+                android:name=".services.MyFirebaseService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_color"
+                android:resource="@color/primaryColor" />
     </application>
 
 </manifest>
