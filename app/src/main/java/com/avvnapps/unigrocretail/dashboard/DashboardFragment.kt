@@ -75,7 +75,7 @@ class DashboardFragment : Fragment() {
 
 
     private fun updateAddress() {
-        var address = LocationUtils.getAddress(activity, location.latitude, location.longitude)
+        val address = LocationUtils.getAddress(activity, location.latitude, location.longitude)
         if (address != null) {
             Log.i(TAG, address)
             dashboardView.appbar_dashboard_set_delivery_location_tv.text = address

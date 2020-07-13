@@ -6,13 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.avvnapps.unigorcretail"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -34,11 +36,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc01'
 
 
     implementation 'com.google.android.material:material:1.2.0-alpha01'
@@ -49,14 +51,18 @@ dependencies {
     implementation 'com.google.guava:guava:27.0.1-android'
     //====================================================================================
     // Firebase Core
-    implementation 'com.google.firebase:firebase-core:17.2.2'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+    implementation 'com.google.firebase:firebase-core:17.4.4'
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.4'
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     // FCM
-    implementation 'com.google.firebase:firebase-messaging:20.1.5'
-    implementation 'com.google.firebase:firebase-iid:20.1.5'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+    implementation 'com.google.firebase:firebase-iid:20.2.1'
     //====================================================================================
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
@@ -69,8 +75,8 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
 
     //=====================================================================================
     // Location
@@ -83,6 +89,9 @@ dependencies {
 
     //=====================================================================================
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
@@ -94,9 +103,9 @@ dependencies {
     //For Step View
     implementation 'com.shuhart.stepview:stepview:1.5.1'
     //For PinView EditText
-    implementation 'com.chaos.view:pinview:1.3.2'
+    implementation 'com.chaos.view:pinview:1.4.3'
     //For playing .gif images
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
 
     // Floating Search View
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
@@ -105,7 +114,7 @@ dependencies {
     implementation 'net.rimoto:intlphoneinput:1.0.1'
 
     // Custom Radio Buttons
-    implementation 'com.github.ceryle:RadioRealButton:v2.1.1' \
+    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -117,7 +126,7 @@ dependencies {
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.1.0'
 
     //Lottie
-    implementation 'com.airbnb.android:lottie:3.3.1'
+    implementation 'com.airbnb.android:lottie:3.4.0'
     //chip navigation
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
@@ -129,8 +138,6 @@ dependencies {
 
     //money converter
     implementation 'com.github.tobiasschuerg:android-money:v0.3'
-
-    implementation 'com.github.seventhmoon:ipapi-retrofit:1.4.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

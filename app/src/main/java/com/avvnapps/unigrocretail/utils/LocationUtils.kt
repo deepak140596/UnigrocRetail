@@ -1,5 +1,6 @@
 package com.avvnapps.unigrocretail.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
@@ -11,8 +12,6 @@ import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.AddressItem
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.SphericalUtil
 import java.io.IOException
 import java.util.*
 
@@ -38,6 +37,7 @@ class LocationUtils(context: Context) {
     var onProgressUpdate: ((show: Boolean) -> Unit)? =
         null // getting location may take second or two
 
+    @SuppressLint("MissingPermission")
     fun getLocation(): LiveData<Location> {
         fusedLocationProviderClient?.lastLocation?.addOnSuccessListener { loc: Location? ->
             onProgressUpdate?.invoke(true)
@@ -76,7 +76,7 @@ class LocationUtils(context: Context) {
         }
 
         fun isNear(activity: AppCompatActivity, addressItem: AddressItem): Boolean {
-            val minDist = 3
+            val minDist = 5
             if (getDistance(activity, addressItem) <= minDist)
                 return true
             return false
@@ -98,13 +98,9 @@ class LocationUtils(context: Context) {
                 loc2.latitude = geoipVal.latitude
             }
 
-
-            val fromPosition = LatLng(loc1.longitude, loc1.latitude)
-            val toPosition = LatLng(loc2.longitude, loc2.latitude)
-            val distance = SphericalUtil.computeDistanceBetween(fromPosition, toPosition)
             Log.v(
                 "aTAG",
-                "Address distant :" + loc1.distanceTo(loc2) + " Location2" + loc2.longitude + " " + loc2.latitude + " Location1" + loc1.longitude + " " + loc1.latitude
+                "Address distant :" + loc1.distanceTo(loc2) + " Location2 : " + loc2.longitude + " , " + loc2.latitude + " Location1 : " + loc1.longitude + " , " + loc1.latitude
             )
             return loc1.distanceTo(loc2)
 

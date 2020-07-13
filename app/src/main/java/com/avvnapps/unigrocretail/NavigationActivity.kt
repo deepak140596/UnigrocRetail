@@ -5,18 +5,16 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.androidfung.geoip.GeoIpService
-import com.androidfung.geoip.ServicesManager
-import com.androidfung.geoip.model.GeoIpResponseModel
 import com.avvnapps.unigrocretail.account_settings.Account
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
+import com.avvnapps.unigrocretail.database.GeoIpServicesManager.geoIpService
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.GeoIp
+import com.avvnapps.unigrocretail.models.GeoIpResponseModel
 import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.avvnapps.unigrocretail.utils.LocationUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -58,40 +56,35 @@ class NavigationActivity : AppCompatActivity() {
                     Toasty.info(this@NavigationActivity,"Account!").show()
                 }
 
-                else ->{
-                //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
-                startFragment(DashboardFragment())
-            }
+                else -> {
+                    //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
+                    startFragment(DashboardFragment())
+                }
             }
         }
 
 
+        val user = FirebaseAuth.getInstance().currentUser
+        //  Log.i(TAG, "Name: ${user!!.displayName}  Email: ${user.email}  Phone: ${user.phoneNumber}")
 
-
-        var user = FirebaseAuth.getInstance().currentUser
-        Log.i(TAG, "Name: ${user!!.displayName}  Email: ${user.email}  Phone: ${user.phoneNumber}")
-
-       // startFragment(DashboardFragment())
+        // startFragment(DashboardFragment())
         getLocation()
     }
 
 
-    fun startFragment(fragment : Fragment){
-        if(fragment != null){
-            var fragmentManager =supportFragmentManager
-            fragmentManager.beginTransaction().replace(R.id.activity_nav_frame_layout,fragment,"").commit()
-        }
+    private fun startFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction().replace(R.id.activity_nav_frame_layout, fragment, "")
+            .commit()
     }
 
 
-
     // observe on location and update accordingly
-    fun updateLocation(){
+    fun updateLocation() {
 
         LocationUtils(this).getLocation().observe(this, Observer { loc: Location? ->
 
-
-            if(loc != null) {
+            if (loc != null) {
                 location = loc
                 Log.i(TAG,"Location: ${location.latitude}  ${location.longitude}")
            }
@@ -112,13 +105,9 @@ class NavigationActivity : AppCompatActivity() {
 
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     // permission was granted
-
                     //isPermissionAcquired = true
-
                    // updateLocation()
                     getLocation()
-
-
                 }
                 else{
                     // permission was denied
@@ -134,39 +123,45 @@ class NavigationActivity : AppCompatActivity() {
     private fun getLocation() {
         gpsUtils.getLatLong { lat, long ->
             Log.i(TAG, "location is $lat + $long")
-           // startFragment(DashboardFragment())
-            val ipApiService: GeoIpService = ServicesManager.getGeoIpService()
-            ipApiService.geoIp.enqueue(object : Callback<GeoIpResponseModel?> {
+            // startFragment(DashboardFragment())
+            val ipApiService = geoIpService
+            ipApiService.getGeoIp().enqueue(object : Callback<GeoIpResponseModel?> {
                 override fun onResponse(
                     call: Call<GeoIpResponseModel?>,
                     response: Response<GeoIpResponseModel?>
                 ) {
-                    val countryName: String = response.body()!!.countryName
-                    val currency: String = response.body()!!.currency
-                    val country: String = response.body()!!.country
-                    val latitude: Double = response.body()!!.latitude
-                    val longtidue: Double = response.body()!!.longitude
-                    val isp: String = response.body()!!.ip
+                    try {
+                        // Log.d(TAG, response.toString())
+                        //Log.d(TAG, response.body().toString())
+                        val countryName: String? = response.body()!!.countryName
+                        val currency: String? = response.body()!!.currency
+                        val country: String? = response.body()!!.country
+                        val isp: String? = response.body()!!.ip
+                        var GeoIpValues = GeoIp(
+                            countryName!!,
+                            currency!!,
+                            country!!,
+                            lat,
+                            long,
+                            isp.toString()
+                        )
 
-                    var GeoIpValues = GeoIp(
-                        countryName,
-                        currency,
-                        country,
-                        lat,
-                        long,
-                        isp
-                    )
-                    Log.e(TAG, "Country Currency : $currency")
-                    SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
+                        SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
                 }
 
-                override fun onFailure(call: Call<GeoIpResponseModel?>?, t: Throwable) {
-                    Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+                override fun onFailure(call: Call<GeoIpResponseModel?>, t: Throwable) {
+                    // Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, t.toString())
                 }
 
 
             })
+
             activity_bottom_nav_view.setItemSelected(R.id.bottom_navigation_dashboard,true)
 
         }
