@@ -8,7 +8,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.avvnapps.unigrocretail.account_settings.Account
 import com.avvnapps.unigrocretail.dashboard.DashboardFragment
 import com.avvnapps.unigrocretail.database.GeoIpServicesManager.geoIpService
@@ -16,8 +15,6 @@ import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.GeoIp
 import com.avvnapps.unigrocretail.models.GeoIpResponseModel
 import com.avvnapps.unigrocretail.utils.GpsUtils
-import com.avvnapps.unigrocretail.utils.LocationUtils
-import com.google.firebase.auth.FirebaseAuth
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_navigation.*
 import retrofit2.Call
@@ -63,12 +60,7 @@ class NavigationActivity : AppCompatActivity() {
             }
         }
 
-
-        val user = FirebaseAuth.getInstance().currentUser
-        //  Log.i(TAG, "Name: ${user!!.displayName}  Email: ${user.email}  Phone: ${user.phoneNumber}")
-
         // startFragment(DashboardFragment())
-        getLocation()
     }
 
 
@@ -78,18 +70,6 @@ class NavigationActivity : AppCompatActivity() {
             .commit()
     }
 
-
-    // observe on location and update accordingly
-    fun updateLocation() {
-
-        LocationUtils(this).getLocation().observe(this, Observer { loc: Location? ->
-
-            if (loc != null) {
-                location = loc
-                Log.i(TAG,"Location: ${location.latitude}  ${location.longitude}")
-           }
-        })
-    }
 
     private fun askForPermissions() {
         ActivityCompat.requestPermissions(this,
@@ -137,7 +117,7 @@ class NavigationActivity : AppCompatActivity() {
                         val currency: String? = response.body()!!.currency
                         val country: String? = response.body()!!.country
                         val isp: String? = response.body()!!.ip
-                        var GeoIpValues = GeoIp(
+                        val GeoIpValues = GeoIp(
                             countryName!!,
                             currency!!,
                             country!!,
@@ -147,6 +127,10 @@ class NavigationActivity : AppCompatActivity() {
                         )
 
                         SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
+                        activity_bottom_nav_view.setItemSelected(
+                            R.id.bottom_navigation_dashboard,
+                            true
+                        )
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -161,8 +145,6 @@ class NavigationActivity : AppCompatActivity() {
 
 
             })
-
-            activity_bottom_nav_view.setItemSelected(R.id.bottom_navigation_dashboard,true)
 
         }
     }

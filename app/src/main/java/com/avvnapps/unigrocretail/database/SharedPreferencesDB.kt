@@ -13,10 +13,10 @@ class SharedPreferencesDB {
     companion object {
 
         fun savePreferredUser(context: Context, user: UserInfo) {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var editor = sharedPreferences.edit()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
 
-            var json = Gson().toJson(user)
+            val json = Gson().toJson(user)
             editor.putString(context.getString(R.string.preferred_user), json)
 
             editor.apply()
@@ -24,8 +24,8 @@ class SharedPreferencesDB {
         }
 
         fun getSavedUser(context: Context): UserInfo? {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var json = sharedPreferences.getString(context.getString(R.string.preferred_user), "")
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val json = sharedPreferences.getString(context.getString(R.string.preferred_user), "")
             if (json?.isEmpty()!!)
                 return null
             return Gson().fromJson(json, UserInfo::class.java)
@@ -33,10 +33,10 @@ class SharedPreferencesDB {
         }
 
         fun savePreferredAddress(context: Context, address: AddressItem) {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var editor = sharedPreferences.edit()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
 
-            var json = Gson().toJson(address)
+            val json = Gson().toJson(address)
             editor.putString(context.getString(R.string.preferred_address), json)
 
             editor.apply()
@@ -44,8 +44,8 @@ class SharedPreferencesDB {
         }
 
         fun getSavedAddress(context: Context): AddressItem? {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var json =
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val json =
                 sharedPreferences.getString(context.getString(R.string.preferred_address), "")
             if (json?.isEmpty()!!)
                 return null
@@ -53,10 +53,10 @@ class SharedPreferencesDB {
         }
 
         fun savePreferredGeoIp(context: Context, geoIp: GeoIp) {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var editor = sharedPreferences.edit()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
 
-            var json = Gson().toJson(geoIp)
+            val json = Gson().toJson(geoIp)
             editor.putString(context.getString(R.string.preferred_geoip), json)
 
             editor.apply()
@@ -64,8 +64,8 @@ class SharedPreferencesDB {
         }
 
         fun getSavedGeoIp(context: Context): GeoIp? {
-            var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            var json = sharedPreferences.getString(context.getString(R.string.preferred_geoip), "")
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val json = sharedPreferences.getString(context.getString(R.string.preferred_geoip), "")
             if (json!!.isEmpty())
                 return null
             return Gson().fromJson(json, GeoIp::class.java)

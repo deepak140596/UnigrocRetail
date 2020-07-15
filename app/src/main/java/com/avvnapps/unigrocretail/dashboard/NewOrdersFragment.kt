@@ -25,7 +25,9 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     lateinit var activity: AppCompatActivity
 
     var submittedOrders: List<OrderItem> = emptyList()
-    lateinit var firestoreViewModel: FirestoreViewModel
+    private val firestoreViewModel by lazy {
+        ViewModelProvider(this).get(FirestoreViewModel::class.java)
+    }
     lateinit var adapter: SubmittedOrderAdapter
 
     override fun onCreateView(
@@ -42,7 +44,6 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         super.onViewCreated(view, savedInstanceState)
 
         // initialise Firestore VM
-        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         initialiseFirestoreViewModel()
 
         fragment_new_orders_recycler_view.layoutManager = LinearLayoutManager(activity)

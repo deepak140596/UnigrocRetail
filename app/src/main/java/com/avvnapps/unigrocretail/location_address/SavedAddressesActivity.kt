@@ -14,9 +14,11 @@ import kotlinx.android.synthetic.main.activity_saved_addresses.*
 
 class SavedAddressesActivity : AppCompatActivity() {
 
-    var firestoreViewModel: FirestoreViewModel ?= null
-    lateinit var savedAddresses : List<AddressItem>
-    lateinit var adapter : AddressItemAdapter
+    private val firestoreViewModel by lazy {
+        ViewModelProvider(this).get(FirestoreViewModel::class.java)
+    }
+    lateinit var savedAddresses: List<AddressItem>
+    lateinit var addressItemAdapter: AddressItemAdapter
     var isSelectableAction = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,36 +26,41 @@ class SavedAddressesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_saved_addresses)
 
         // check if the activity is opened to select address
-        isSelectableAction = intent.getBooleanExtra("is_selectable_action",false)
+        isSelectableAction = intent.getBooleanExtra("is_selectable_action", false)
 
-        // set up divider in recycler view
-        activity_saved_add_rv.layoutManager = LinearLayoutManager(this)
-        activity_saved_add_rv.addItemDecoration(
-            DividerItemDecoration(
-                activity_saved_add_rv.context,DividerItemDecoration.VERTICAL
-            )
-        )
-
-        // initialise firestore view model and adapter
-        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         savedAddresses = ArrayList<AddressItem>()
-        adapter = AddressItemAdapter(this@SavedAddressesActivity as AppCompatActivity,savedAddresses,firestoreViewModel!!,isSelectableAction)
-        activity_saved_add_rv.adapter = adapter
+        addressItemAdapter = AddressItemAdapter(
+            this@SavedAddressesActivity as AppCompatActivity,
+            savedAddresses,
+            firestoreViewModel,
+            isSelectableAction
+        )
+        // set up divider in recycler view
+        activity_saved_add_rv.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            addItemDecoration(
+                DividerItemDecoration(
+                    activity_saved_add_rv.context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            adapter = addressItemAdapter
+        }
 
 
 
         activity_saved_add_fab.setOnClickListener {
-            startActivity(Intent(this,CreateAddressActivity::class.java))
+            startActivity(Intent(this, CreateAddressActivity::class.java))
         }
 
         getSavedAddresses()
     }
 
-    fun getSavedAddresses(){
-        firestoreViewModel!!.getSavedAddresses().observe(this, Observer {
+    private fun getSavedAddresses() {
+        firestoreViewModel.getSavedAddresses().observe(this, Observer {
             savedAddresses = it
-            adapter.addressList = savedAddresses
-            adapter.notifyDataSetChanged()
+            addressItemAdapter.addressList = savedAddresses
+            addressItemAdapter.notifyDataSetChanged()
         })
     }
 }

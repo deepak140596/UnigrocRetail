@@ -28,7 +28,6 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseService : FirebaseMessagingService() {
     private val TAG = "MyFirebaseService"
     val user = FirebaseAuth.getInstance().currentUser.let { it?.let { it1 -> UserInfo(it1) } }
-
     val firestore = Firebase.firestore
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // handle a notification payload.
