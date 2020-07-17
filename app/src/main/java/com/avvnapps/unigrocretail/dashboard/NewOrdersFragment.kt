@@ -25,10 +25,11 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     lateinit var activity: AppCompatActivity
 
     var submittedOrders: List<OrderItem> = emptyList()
+
     private val firestoreViewModel by lazy {
         ViewModelProvider(this).get(FirestoreViewModel::class.java)
     }
-    lateinit var adapter: SubmittedOrderAdapter
+    lateinit var submittedOrderAdapter: SubmittedOrderAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,11 +46,12 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
         // initialise Firestore VM
         initialiseFirestoreViewModel()
+        submittedOrderAdapter = SubmittedOrderAdapter(activity, submittedOrders)
 
-        fragment_new_orders_recycler_view.layoutManager = LinearLayoutManager(activity)
-
-        adapter = SubmittedOrderAdapter(activity, submittedOrders)
-        fragment_new_orders_recycler_view.adapter = adapter
+        fragment_new_orders_recycler_view.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = submittedOrderAdapter
+        }
 
         fragment_new_orders_swipe_layout.setOnRefreshListener(this)
     }
@@ -68,8 +70,8 @@ class NewOrdersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             //updatedOrder(submittedOrders)
-            adapter.submittedOrderList = submittedOrders
-            adapter.notifyDataSetChanged()
+            submittedOrderAdapter.submittedOrderList = submittedOrders
+            submittedOrderAdapter.notifyDataSetChanged()
 
             if (fragment_new_orders_swipe_layout.isRefreshing)
                 fragment_new_orders_swipe_layout.isRefreshing = false

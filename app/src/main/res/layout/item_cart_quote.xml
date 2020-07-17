@@ -54,15 +54,14 @@
             app:layout_constraintStart_toEndOf="@+id/item_cart_iv"
             app:layout_constraintTop_toBottomOf="@+id/item_cart_qty_tv">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/item_cart_price_pu_et"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Price per unit"
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
-
-                />
+                tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

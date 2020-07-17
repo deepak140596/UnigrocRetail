@@ -5,16 +5,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.models.OrderItem
+import com.avvnapps.unigrocretail.quote_submitted_order.SummaryItemAdapter
 import com.avvnapps.unigrocretail.utils.ApplicationConstants
 import com.avvnapps.unigrocretail.utils.OrderUtils
 import com.avvnapps.unigrocretail.viewmodel.FirestoreViewModel
-import kotlinx.android.synthetic.main.item_order.view.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.avvnapps.unigrocretail.R
-import com.avvnapps.unigrocretail.quote_submitted_order.SummaryItemAdapter
 import kotlinx.android.synthetic.main.activity_summary_quotation.view.*
+import kotlinx.android.synthetic.main.item_order.view.*
 
 
 class OrderItemAdapter(
@@ -77,20 +77,23 @@ class OrderItemAdapter(
             }
         }
 
-        fun showDialogForCartItems(orderItem: OrderItem) {
-            var dialog = Dialog(context)
-            var layoutInflater =
+        private fun showDialogForCartItems(orderItem: OrderItem) {
+            val dialog = Dialog(context)
+            val layoutInflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var view: View = layoutInflater.inflate(R.layout.activity_summary_quotation, null)
+            val view: View = layoutInflater.inflate(R.layout.activity_summary_quotation, null)
+            val summaryItemAdapter = SummaryItemAdapter(context, orderItem.cartItems)
 
-            view.activity_summary_quotation_price_rv.layoutManager = LinearLayoutManager(context)
-            var adapter = SummaryItemAdapter(context, orderItem.cartItems)
-            view.activity_summary_quotation_price_rv.adapter = adapter
+            view.activity_summary_quotation_price_rv.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = summaryItemAdapter
+            }
+
             view.activity_summary_quotation_price_ll.visibility = View.GONE
 
-            var rv_params = view.activity_summary_quotation_price_rv.layoutParams
-            rv_params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            view.activity_summary_quotation_price_rv.layoutParams = rv_params
+            val rvParams = view.activity_summary_quotation_price_rv.layoutParams
+            rvParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            view.activity_summary_quotation_price_rv.layoutParams = rvParams
 
             view.activity_summary_quotation_rl.layoutParams =
                 ViewGroup.LayoutParams(

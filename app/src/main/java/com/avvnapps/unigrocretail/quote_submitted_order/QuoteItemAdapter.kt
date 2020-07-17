@@ -43,7 +43,8 @@ class QuoteItemAdapter(var context: Context, var cartItems: List<CartEntity>) :
 
         if (cartItem.price != 0.0) {
             val convertedPrice = PriceFormatter.getFormattedPrice(context, cartItem.price)
-            var string = convertedPrice.replace(("[^\\d.]").toRegex(), "")
+            val string = convertedPrice.replace(("[^\\d.]").toRegex(), "")
+
             holder.itemView.item_cart_price_pu_et.setText(string)
         } else if (cartItem.price == 0.0)
             holder.itemView.item_cart_price_pu_et.setText("")
@@ -57,10 +58,18 @@ class QuoteItemAdapter(var context: Context, var cartItems: List<CartEntity>) :
 
             holder.itemView.item_cart_total_price_tv.text =
                 (PriceFormatter.getCurrencySymbol(context) + text.toDouble() * cartItem.quantity)
-            cartItems[position].price = PriceFormatter.getDefaultPrice(context, text.toDouble())
-            cartItem.price = PriceFormatter.getDefaultPrice(context, text.toDouble())
 
-            Log.d(TAG, "PRICE: ${cartItem.price}")
+            try {
+                val savePrice = PriceFormatter.getDefaultPrice(context, text.toDouble())
+                Log.w(TAG, "Converted money $savePrice")
+                cartItems[position].price = savePrice
+                cartItem.price = savePrice
+                Log.d(TAG, "PRICE: ${cartItem.price}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+
         }
 
     }

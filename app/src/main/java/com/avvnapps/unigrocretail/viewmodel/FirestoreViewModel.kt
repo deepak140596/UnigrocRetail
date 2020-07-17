@@ -187,9 +187,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var orderList : MutableList<OrderItem> = mutableListOf()
+            val orderList: MutableList<OrderItem> = mutableListOf()
             for(doc in documents!!){
-                var orderItem = doc.toObject(OrderItem::class.java)
+                val orderItem = doc.toObject(OrderItem::class.java)
                 orderList.add(orderItem)
             }
 

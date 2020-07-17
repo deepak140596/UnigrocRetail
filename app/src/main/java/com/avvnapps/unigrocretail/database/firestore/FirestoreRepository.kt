@@ -20,7 +20,7 @@ class FirestoreRepository {
 
     //save user info
     fun saveUserInfo(userInfo: UserInfo): Task<Void>{
-        var documentReference = firestoreDB.collection("retailers").document(email)
+        val documentReference = firestoreDB.collection("retailers").document(email)
 
         return documentReference.set(userInfo,SetOptions.merge())
     }
@@ -28,7 +28,7 @@ class FirestoreRepository {
 
     // get availbale cart items
     fun getAvailableCartItems(): Task<QuerySnapshot> {
-        var collectionReference = firestoreDB.collection("available_cart_items")
+        val collectionReference = firestoreDB.collection("available_cart_items")
         return collectionReference.get()
     }
 
@@ -36,7 +36,7 @@ class FirestoreRepository {
     // save address to firebase
     fun saveAddressItem(addressItem: AddressItem): Task<Void> {
         //var
-        var documentReference = firestoreDB.collection("retailers").document(email)
+        val documentReference = firestoreDB.collection("retailers").document(email)
             .collection("saved_addresses").document(addressItem.addressId)
         return documentReference.set(addressItem)
     }
@@ -47,26 +47,28 @@ class FirestoreRepository {
     }
 
     fun deleteAddress(addressItem: AddressItem): Task<Void> {
-        var documentReference =  firestoreDB.collection("retailers/$email/saved_addresses")
+        val documentReference = firestoreDB.collection("retailers/$email/saved_addresses")
             .document(addressItem.addressId)
 
         return documentReference.delete()
     }
 
     fun getSubmittedOrders(): Task<QuerySnapshot> {
-        var collectionReference = firestoreDB.collection("orders")
-            .whereEqualTo("orderStatus",ApplicationConstants.ORDER_SUBMITTED)
+        val collectionReference = firestoreDB.collection("orders")
+            .whereEqualTo("orderStatus", ApplicationConstants.ORDER_SUBMITTED)
         return collectionReference.get()
     }
 
     fun addQuotation(context: Context,order: OrderItem){
 
-        var docRef : DocumentReference = FirebaseFirestore.getInstance()
+        val docRef: DocumentReference = FirebaseFirestore.getInstance()
             .collection("orders").document(order.orderId.toString())
 
-        var newQuotation = RetailerQuotationItem(user.email!!,user.displayName!!,user.photoUrl.toString(),
+        val newQuotation = RetailerQuotationItem(
+            user.email!!, user.displayName!!, user.photoUrl.toString(),
             getTotalQuotationPrice(order.cartItems),
-            SharedPreferencesDB.getSavedAddress(context)!!,order.cartItems,4.6)
+            SharedPreferencesDB.getSavedAddress(context)!!, order.cartItems, 4.6
+        )
 
 
         docRef.update("quotations", FieldValue.arrayUnion(newQuotation),

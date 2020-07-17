@@ -137,7 +137,7 @@ dependencies {
     implementation 'id.zelory:compressor:3.0.0'
 
     //money converter
-    implementation 'com.github.tobiasschuerg:android-money:v0.3'
+    implementation 'com.github.tobiasschuerg:android-money:0.8.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
