@@ -1,11 +1,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.avvnapps.unigrocretail.account_settings.Account">
 
-    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_white"
@@ -85,18 +86,22 @@
                     android:checked="true"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_edit_password"
+                    android:focusable="true"
                     android:text="Change Password" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
-                    android:text="Notifications" />
+                    android:text="Set Delivery Range (km)" />
 
-            <Switch
-                    style="@style/settingsText"
-
-                    android:drawableLeft="@drawable/ic_notifications"
+            <TextView
+                    android:id="@+id/change_range"
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_baseline_edit_location_24"
                     android:focusable="true"
-                    android:text="Notifications" />
+                    android:text="Change Delivery Range" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"

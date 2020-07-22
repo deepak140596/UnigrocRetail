@@ -53,7 +53,6 @@ class NavigationActivity : AppCompatActivity() {
                 }
                 R.id.bottom_navigation_account ->{
                     startFragment(Account())
-                    Toasty.info(this@NavigationActivity, "Account!").show()
                 }
 
                 else -> {

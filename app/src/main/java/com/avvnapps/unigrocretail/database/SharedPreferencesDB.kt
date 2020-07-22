@@ -70,6 +70,22 @@ class SharedPreferencesDB {
                 return null
             return Gson().fromJson(json, GeoIp::class.java)
         }
+
+        fun saveLocationRange(context: Context, double: Double) {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
+            editor.putInt("locationRange", double.toInt())
+            editor.apply()
+            editor.commit()
+        }
+
+        fun getLocationRange(context: Context): Int {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val json = sharedPreferences.getInt("locationRange", -1)
+
+            return json
+        }
+
     }
 
 }

@@ -11,13 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.authentication.AuthUiActivity
+import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.Slider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.location_range_bottomsheet.view.*
+import java.text.NumberFormat
 
 
 class Account : Fragment() {
@@ -82,6 +87,57 @@ class Account : Fragment() {
         logOutTv.setOnClickListener {
             logOutAlert()
         }
+
+        change_range.setOnClickListener {
+            setLocationRange()
+
+        }
+
+    }
+
+    private fun setLocationRange() {
+        val dialog = BottomSheetDialog(activity)
+        val view = layoutInflater.inflate(R.layout.location_range_bottomsheet, null)
+
+        view.sliderLocation.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
+                // Responds to when slider's touch event is being started
+            }
+
+            override fun onStopTrackingTouch(slider: Slider) {
+                // Responds to when slider's touch event is being stopped
+                val format = NumberFormat.getInstance()
+                format.maximumFractionDigits = 0
+                view.locationRangeTv.text =
+                    "Delivery Range : ${format.format(slider.value.toDouble())}km"
+                SharedPreferencesDB.saveLocationRange(
+                    activity,
+                    format.format(slider.value.toDouble()).toDouble()
+                )
+
+            }
+        })
+
+        view.sliderLocation.setLabelFormatter { value: Float ->
+            val format = NumberFormat.getInstance()
+            format.maximumFractionDigits = 0
+            format.format(value.toDouble())
+        }
+
+        view.sliderLocation.addOnChangeListener { slider, value, fromUser ->
+            // Responds to when slider's value is changed
+            val format = NumberFormat.getInstance()
+            format.maximumFractionDigits = 0
+            view.locationRangeTv.text = "Delivery Range ${format.format(value.toDouble())}km"
+        }
+        view.updateLocationRange.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
     }
 
     private fun logOutAlert() {

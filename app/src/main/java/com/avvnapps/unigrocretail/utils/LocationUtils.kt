@@ -77,17 +77,24 @@ class LocationUtils(context: Context) {
 
         fun isNear(activity: AppCompatActivity, addressItem: AddressItem): Boolean {
             val minDist = 5
-            if (getDistance(activity, addressItem) <= minDist)
-                return true
+            val minDistl = SharedPreferencesDB.getLocationRange(activity)
+            if (minDistl == -1) {
+                if (getDistance(activity, addressItem) <= minDist)
+                    return true
+            } else {
+                if (getDistance(activity, addressItem) <= minDistl)
+                    return true
+            }
+
             return false
         }
 
         private fun getDistance(activity: AppCompatActivity, addressItem: AddressItem): Float {
-            var loc1 = Location("Location1")
+            val loc1 = Location("Location1")
             loc1.longitude = addressItem.longitude
             loc1.latitude = addressItem.latitude
 
-            var loc2 = Location("Location2")
+            val loc2 = Location("Location2")
             val geoipVal = SharedPreferencesDB.getSavedGeoIp(activity)
 
             if (geoipVal != null) {
