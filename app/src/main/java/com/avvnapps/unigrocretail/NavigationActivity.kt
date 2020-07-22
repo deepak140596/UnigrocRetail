@@ -2,7 +2,6 @@ package com.avvnapps.unigrocretail
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,11 @@ import com.avvnapps.unigrocretail.database.GeoIpServicesManager.geoIpService
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.GeoIp
 import com.avvnapps.unigrocretail.models.GeoIpResponseModel
+import com.avvnapps.unigrocretail.models.UserInfo
 import com.avvnapps.unigrocretail.utils.GpsUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_navigation.*
 import retrofit2.Call
@@ -24,22 +27,22 @@ import retrofit2.Response
 class NavigationActivity : AppCompatActivity() {
 
     var TAG = "NAV_ACTIVITY"
-    lateinit var location: Location
 
-    private lateinit var gpsUtils: GpsUtils
-
+    private val gpsUtils by lazy { GpsUtils(this) }
+    val firestoreDB: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+    val user by lazy { FirebaseAuth.getInstance().currentUser }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        gpsUtils = GpsUtils(this)
-
         askForPermissions()
 
-        activity_bottom_nav_view.setOnItemSelectedListener{ id ->
+        activity_bottom_nav_view.setOnItemSelectedListener { id ->
             when (id) {
-                R.id.bottom_navigation_dashboard ->{
+                R.id.bottom_navigation_dashboard -> {
                     //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
                     startFragment(DashboardFragment())
                 }
@@ -50,7 +53,7 @@ class NavigationActivity : AppCompatActivity() {
                 }
                 R.id.bottom_navigation_account ->{
                     startFragment(Account())
-                    Toasty.info(this@NavigationActivity,"Account!").show()
+                    Toasty.info(this@NavigationActivity, "Account!").show()
                 }
 
                 else -> {
@@ -60,7 +63,35 @@ class NavigationActivity : AppCompatActivity() {
             }
         }
 
+        getUserData()
+
         // startFragment(DashboardFragment())
+    }
+
+    private fun getUserData() {
+        val docRef = firestoreDB.collection("retailers").document(user?.email.toString())
+
+        // Source can be CACHE, SERVER, or DEFAULT.
+        val source = Source.SERVER
+        // Get the document, forcing the SDK to use the offline cache
+        docRef.get(source).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                val userValues = UserInfo(
+                    user?.displayName.toString(),
+                    user?.email.toString(),
+                    user?.phoneNumber.toString(),
+                    document?.get("profilePic").toString(),
+                    document?.get("shopName").toString(),
+                    document?.get("deviceToken").toString()
+                )
+                SharedPreferencesDB.savePreferredUser(this, userValues)
+
+
+            } else {
+                Log.d(TAG, "Cached get failed: ", task.exception)
+            }
+        }
     }
 
 
@@ -101,6 +132,10 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun getLocation() {
+        activity_bottom_nav_view.setItemSelected(
+            R.id.bottom_navigation_dashboard,
+            true
+        )
         gpsUtils.getLatLong { lat, long ->
             Log.i(TAG, "location is $lat + $long")
             // startFragment(DashboardFragment())
@@ -127,10 +162,7 @@ class NavigationActivity : AppCompatActivity() {
                         )
 
                         SharedPreferencesDB.savePreferredGeoIp(this@NavigationActivity, GeoIpValues)
-                        activity_bottom_nav_view.setItemSelected(
-                            R.id.bottom_navigation_dashboard,
-                            true
-                        )
+
 
                     } catch (e: Exception) {
                         e.printStackTrace()

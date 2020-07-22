@@ -48,14 +48,12 @@ class RetailerAddInfo : AppCompatActivity() {
     var IMAGE_STATUS = false
     private var compressedImage: File? = null
     private var thumb_image: Bitmap? = null
-    var user = FirebaseAuth.getInstance().currentUser!!
-    var firestoreViewModel: FirestoreViewModel? = null
+    val user by lazy { FirebaseAuth.getInstance().currentUser }
+    private val firestoreViewModel by lazy { ViewModelProvider(this).get(FirestoreViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_retailer_add_info)
-        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
-
         setupClickListener()
     }
 
@@ -136,23 +134,23 @@ class RetailerAddInfo : AppCompatActivity() {
 
                             // Log and toast
                             Log.d(TAG, "tokenID $token")
-                            var profile_pic = urlTask.result.toString()
-                            var userValues = UserInfo(
-                                user.displayName.toString(),
-                                user.email.toString(),
-                                user.phoneNumber.toString(),
-                                profile_pic,
+                            val profilePic = urlTask.result.toString()
+                            val userValues = UserInfo(
+                                user?.displayName.toString(),
+                                user?.email.toString(),
+                                user?.phoneNumber.toString(),
+                                profilePic,
                                 shopName,
                                 token
                             )
-                            firestoreViewModel?.saveUserData(userValues)
+                            firestoreViewModel.saveUserData(userValues)
 
                             val profileUpdates = UserProfileChangeRequest.Builder()
-                                .setPhotoUri(Uri.parse(profile_pic))
+                                .setPhotoUri(Uri.parse(profilePic))
                                 .build()
 
-                            user.updateProfile(profileUpdates)
-                                .addOnCompleteListener { task ->
+                            user?.updateProfile(profileUpdates)
+                                ?.addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         SharedPreferencesDB.savePreferredUser(this, userValues)
                                         dialog.dismiss()

@@ -14,13 +14,16 @@ import kotlinx.android.synthetic.main.activity_shop_profile.*
 
 class ShopProfile : AppCompatActivity() {
 
+    val TAG = "ShopProfile"
+    val user by lazy { FirebaseAuth.getInstance().currentUser }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_profile)
-        var user = FirebaseAuth.getInstance().currentUser
 
-        var userinfo = SharedPreferencesDB.getSavedUser(this)
-        shop_Name_tv.text = userinfo?.shopName.toString()
+
+        val userInfo = SharedPreferencesDB.getSavedUser(this)
+        shop_Name_tv.text = userInfo?.shopName.toString()
         owner_name_tv.text = user?.displayName.toString()
         email_view_tv.text = user?.email.toString()
         phone_no_view_tv.text = user?.phoneNumber.toString()

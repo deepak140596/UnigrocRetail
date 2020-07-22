@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_account.*
 class Account : Fragment() {
     lateinit var activity: AppCompatActivity
 
+    val user by lazy { FirebaseAuth.getInstance().currentUser }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +37,6 @@ class Account : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var user = FirebaseAuth.getInstance().currentUser
 
 
         userNametv.text =
@@ -52,7 +53,7 @@ class Account : Fragment() {
 
         Glide.with(this)
             .applyDefaultRequestOptions(options)
-            .load(user.photoUrl)
+            .load(user?.photoUrl)
             .into(profileCircleImageView)
 
 

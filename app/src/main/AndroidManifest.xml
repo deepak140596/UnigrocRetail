@@ -28,9 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".account_settings.EditProfile"
-                android:theme="@style/MaterialTheme"></activity>
+                android:theme="@style/MaterialTheme" />
         <activity
                 android:name=".account_settings.ShopProfile"
                 android:theme="@style/AppTheme.NoActionBar" />
