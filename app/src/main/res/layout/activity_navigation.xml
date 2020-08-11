@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -21,21 +20,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/activity_bottom_nav_view"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
         <com.skydoves.androidbottombar.AndroidBottomBarView
                 android:id="@+id/activity_bottom_nav_view"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:layout_alignParentBottom="true"
                 android:background="@color/colorPrimary"
+                android:paddingTop="3dp"
                 app:bottomBar_duration="300"
                 app:bottomBar_flavor="icon"
                 app:bottomBar_indicator_color="@color/md_blue_300"
                 app:bottomBar_indicator_height="4dp"
                 app:bottomBar_indicator_padding="6dp"
                 app:bottomBar_indicator_radius="12dp"
-                android:layout_alignParentBottom="true"
                 app:bottomBar_indicator_visible="true"
                 app:bottomBar_menuAnimation="overshoot"
                 app:bottomBar_selectedIndex="0" />

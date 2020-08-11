@@ -99,14 +99,16 @@ class FirestoreRepository {
     }
 
     fun makeOrderReady(orderItem: OrderItem): Task<Void> {
-        var documentReference = firestoreDB.collection("orders").document(orderItem.orderId.toString())
-            .update("orderStatus",ApplicationConstants.ORDER_READY)
+        val documentReference =
+            firestoreDB.collection("orders").document(orderItem.orderId.toString())
+                .update("orderStatus", ApplicationConstants.ORDER_READY)
         return documentReference
     }
 
     fun completeOrder(orderItem: OrderItem): Task<Void> {
-        var documentReference = firestoreDB.collection("orders").document(orderItem.orderId.toString())
-            .update("orderStatus",ApplicationConstants.ORDER_PICKED_DELIVERED)
+        val documentReference =
+            firestoreDB.collection("orders").document(orderItem.orderId.toString())
+                .update("orderStatus", ApplicationConstants.ORDER_PICKED_DELIVERED)
         return documentReference
     }
 

@@ -15,6 +15,7 @@ import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.GeoIp
 import com.avvnapps.unigrocretail.models.GeoIpResponseModel
 import com.avvnapps.unigrocretail.models.UserInfo
+import com.avvnapps.unigrocretail.order_history.OrderHistoryFragment
 import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -73,7 +74,7 @@ class NavigationActivity : AppCompatActivity() {
 
                 BottomMenuItem(this)
                     .setTitle("Order History")
-                    .setIcon(R.drawable.ic_search_black_24dp)
+                    .setIcon(R.drawable.cart)
                     .build(),
 
                 BottomMenuItem(this)
@@ -93,19 +94,17 @@ class NavigationActivity : AppCompatActivity() {
             ) {
                 when (index) {
                     0 -> {
-                        //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
                         activity_bottom_nav_view.dismissBadge(index)
                         startFragment(DashboardFragment())
                     }
                     1 -> {
-                        //  startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
-                        Toasty.info(this@NavigationActivity, "Search!").show()
+                        activity_bottom_nav_view.dismissBadge(index)
+                        startFragment(OrderHistoryFragment())
                     }
                     2 -> {
                         startFragment(Account())
                     }
                     else -> {
-                        //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
                         startFragment(DashboardFragment())
                     }
                 }
@@ -113,6 +112,7 @@ class NavigationActivity : AppCompatActivity() {
         }
 
         activity_bottom_nav_view.setOnBottomMenuInitializedListener {
+            activity_bottom_nav_view.dismissBadge(1)
 
             // show badges after 1500 milliseconds.
             Handler().postDelayed({
