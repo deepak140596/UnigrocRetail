@@ -7,22 +7,27 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_new_orders_recycler_view"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="0dp"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_new_orders_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="0dp"
+                android:scrollbars="vertical" />
 
-    <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/empty_bag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lottie_fileName="empty_bag.json"
-            app:lottie_loop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            app:lottie_autoPlay="true"/>
+        <com.avvnapps.unigrocretail.Font.LatoBLack
+                android:id="@+id/no_new_orders_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="no new orders"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+    </RelativeLayout>
+
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

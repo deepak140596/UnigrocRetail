@@ -6,14 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'io.fabric'
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.avvnapps.unigorcretail"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -24,31 +25,44 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc03'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc03'
 
 
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
+    implementation "androidx.preference:preference-ktx:1.1.1"
+    implementation 'android.arch.work:work-runtime:1.0.1'
+    implementation 'com.google.guava:guava:27.0.1-android'
     //====================================================================================
     // Firebase Core
-    implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
-    implementation 'com.google.firebase:firebase-firestore:18.0.1'
-    implementation 'com.firebaseui:firebase-ui-auth:6.0.2'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-
+    implementation 'com.google.firebase:firebase-core:17.4.4'
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.4'
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
+    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    // FCM
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+    implementation 'com.google.firebase:firebase-iid:20.2.1'
     //====================================================================================
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
@@ -56,12 +70,13 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
     // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
 
     //=====================================================================================
     // Location
@@ -74,20 +89,23 @@ dependencies {
 
     //=====================================================================================
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
     // circle image view
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
     //For Step View
-    implementation 'com.shuhart.stepview:stepview:1.2.8'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
     //For PinView EditText
-    implementation 'com.chaos.view:pinview:1.3.2'
+    implementation 'com.chaos.view:pinview:1.4.3'
     //For playing .gif images
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
 
     // Floating Search View
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
@@ -96,21 +114,31 @@ dependencies {
     implementation 'net.rimoto:intlphoneinput:1.0.1'
 
     // Custom Radio Buttons
-    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'\
+    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'
 
     // GSON
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     // Rating view
     implementation 'hyogeun.github.com.colorratingbar:ColorRatingBar:1.0.1'
 
     // sectional recycler view
-    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.0.0'
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.1.0'
 
     //Lottie
-    implementation 'com.airbnb.android:lottie:3.0.7'
-    //chip navigation
-    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
+    implementation 'com.airbnb.android:lottie:3.4.1'
+    //android bottom bar
+    implementation "com.github.skydoves:androidbottombar:1.0.0"
+
+    //for permission
+    implementation 'com.karumi:dexter:6.0.2'
+    //Crop Image
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'id.zelory:compressor:3.0.0'
+
+    //money converter
+    implementation 'com.github.tobiasschuerg:android-money:0.8.0'
+
 
 }
 

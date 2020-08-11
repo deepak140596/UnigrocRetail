@@ -4,18 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.avvnapps.unigrocretail.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.avvnapps.unigrocretail.NavigationActivity
 import com.avvnapps.unigrocretail.R
-import com.crashlytics.android.Crashlytics
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import io.fabric.sdk.android.Fabric
 
 /**
  * Created by Deepak Prasad on 11-02-2019.
@@ -28,7 +25,6 @@ class AuthUiActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        Fabric.with(this, Crashlytics())
         title = "Sign In"
 
         mAuth = FirebaseAuth.getInstance()
@@ -105,6 +101,7 @@ class AuthUiActivity : AppCompatActivity() {
 
     fun startPhoneAuthActivity(user: FirebaseUser? = null) {
         if (user != null) {
+            Log.i(TAG, "User Details: ${user.photoUrl}")
             Log.i(TAG, "Phone Number: ${user.phoneNumber}")
             //Toast.makeText(this,"Signed In",Toast.LENGTH_SHORT).show()
             if (user.phoneNumber == null || user.phoneNumber.toString().length == 0)

@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.avvnapps.unigrocretail.order_history.OrderHistoryFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_orders_history_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="0dp"
+            android:scrollbars="vertical" />
+
+    <com.avvnapps.unigrocretail.Font.LatoBLack
+            android:id="@+id/no_new_orders_tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="You have not completed any order"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+</RelativeLayout>

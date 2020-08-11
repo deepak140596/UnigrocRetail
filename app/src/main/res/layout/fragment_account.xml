@@ -1,5 +1,5 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -7,13 +7,10 @@
         tools:context="com.avvnapps.unigrocretail.account_settings.Account">
 
     <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:context="com.appsnipp.mysettings.SettingsActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_white">
+            android:background="@color/color_white"
+            tools:context="com.appsnipp.mysettings.SettingsActivity">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -26,89 +23,120 @@
                     android:text="Settings" />
 
             <RelativeLayout
+                    android:id="@+id/profile_details_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profileCircleImageView"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="@color/imageBorderColor"
-                        android:src="@drawable/ic_profile"
                         android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"/>
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/user_placeholder"
+                        app:civ_border_color="@color/grey_light"
+                        app:civ_border_width="2dp" />
 
                 <TextView
                         android:id="@+id/userNametv"
                         style="@style/viewParent.headerText"
-                        android:text="Ahraar Alam"
-                        android:textSize="18sp"
+                        android:layout_marginTop="20dp"
                         android:layout_toRightOf="@id/profileCircleImageView"
-                        android:layout_marginTop="20dp"/>
+                        android:text="Ahraar Alam"
+                        android:textSize="18sp" />
 
                 <TextView
                         style="@style/viewParent.headerText"
-                        android:text="Edit personal details"
-                        android:textSize="16sp"
-                        android:textColor="#5D5C5C"
                         android:layout_below="@id/userNametv"
-                        android:layout_toRightOf="@id/profileCircleImageView"/>
+                        android:layout_toRightOf="@id/profileCircleImageView"
+                        android:text="Store details"
+                        android:textColor="#5D5C5C"
+                        android:textSize="16sp" />
 
                 <ImageView
                         style="@style/viewParent"
-                        android:src="@drawable/ic_more"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_more" />
 
             </RelativeLayout>
 
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
-                    android:text="Profile"/>
+                    android:text="Profile" />
 
             <TextView
+                    android:id="@+id/edit_profile_tv"
                     style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_edit_profile"
+                    android:focusable="true"
                     android:text="Edit Profile" />
 
             <TextView
+                    android:id="@+id/change_password"
                     style="@style/viewParent.headerText.settingsTextIcon"
-                    android:drawableLeft="@drawable/ic_edit_password"
                     android:layout_marginTop="10dp"
+                    android:background="?selectableItemBackground"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_edit_password"
+                    android:focusable="true"
                     android:text="Change Password" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
-                    android:text="Notifications"/>
+                    android:text="Set Delivery Range (km)" />
 
-            <Switch
-                    style="@style/settingsText"
+            <TextView
+                    android:id="@+id/change_range"
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
                     android:checked="true"
-                    android:drawableLeft="@drawable/ic_notifications"
-                    android:text="Notifications" />
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_baseline_edit_location_24"
+                    android:focusable="true"
+                    android:text="Change Delivery Range" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
-                    android:text="Regional"/>
+                    android:text="Application Preferences" />
 
             <TextView
                     style="@style/viewParent.headerText.settingsTextIcon"
-                    android:drawableLeft="@drawable/ic_languages"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_help_24dp"
+                    android:focusable="true"
+                    android:text="Help &amp; Support" />
+
+            <TextView
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_languages"
+                    android:focusable="true"
                     android:text="Language" />
 
             <TextView
                     android:id="@+id/logOutTv"
                     style="@style/viewParent.headerText.settingsTextIcon"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_logout"
+                    android:focusable="true"
                     android:text="Logout" />
 
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"
                     android:text="App ver 1.0.0"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center" />
 
         </LinearLayout>
     </ScrollView>

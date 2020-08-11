@@ -44,8 +44,10 @@ class SummaryItemAdapter(var context: Context, var cartItems: List<CartEntity>)
 
             itemView.item_quote_summary_name_tv.text = cartItem.name
             itemView.item_quote_summary_qty_tv.text = getQuantityAndWeight(cartItem)
-            itemView.item_quote_summary_price_tv.text = PriceFormatter.getFormattedPrice(cartItem.price )
-            itemView.item_quote_summary_total_price_tv.text = PriceFormatter.getFormattedPrice(cartItem.price * cartItem.quantity )
+            itemView.item_quote_summary_price_tv.text =
+                PriceFormatter.getFormattedPrice(context, cartItem.price)
+            itemView.item_quote_summary_total_price_tv.text =
+                PriceFormatter.getFormattedPrice(context, cartItem.price * cartItem.quantity)
 
             if(cartItem.photoUrl != null){
                 Glide.with(context).load(cartItem.photoUrl).into(itemView.item_cart_iv)

@@ -3,17 +3,17 @@ package com.avvnapps.unigrocretail.viewmodel
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
-import com.avvnapps.unigrocretail.database.SharedPreferencesDB
-import com.avvnapps.unigrocretail.models.CartEntity
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.avvnapps.unigrocretail.database.firestore.FirestoreRepository
 import com.avvnapps.unigrocretail.models.AddressItem
+import com.avvnapps.unigrocretail.models.CartEntity
 import com.avvnapps.unigrocretail.models.OrderItem
-import com.avvnapps.unigrocretail.models.RetailerQuotationItem
-import com.avvnapps.unigrocretail.utils.ApplicationConstants
-import com.google.common.collect.Ordering
+import com.avvnapps.unigrocretail.models.UserInfo
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.QuerySnapshot
 
 class FirestoreViewModel(application: Application) : AndroidViewModel(application){
 
@@ -33,9 +33,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
 
         availableCartItems = MutableLiveData()
         firebaseRepository.getAvailableCartItems().addOnSuccessListener {documents ->
-            var availableCartList : MutableList<CartEntity> = mutableListOf()
+            val availableCartList: MutableList<CartEntity> = mutableListOf()
             for(doc in documents){
-                var cartItem = doc.toObject(CartEntity::class.java)
+                val cartItem = doc.toObject(CartEntity::class.java)
                 availableCartList.add(cartItem)
             }
 
@@ -47,6 +47,13 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
 
         return availableCartItems
 
+    }
+
+    // save User Data to firebase
+    fun saveUserData(userInfo: UserInfo){
+        firebaseRepository.saveUserInfo(userInfo).addOnFailureListener {
+            Log.e(TAG,"Failed to save User Data!")
+        }
     }
 
     // save address to firebase
@@ -65,9 +72,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var savedAddressList : MutableList<AddressItem> = mutableListOf()
+            val savedAddressList: MutableList<AddressItem> = mutableListOf()
             for (doc in value!!) {
-                var addressItem = doc.toObject(AddressItem::class.java)
+                val addressItem = doc.toObject(AddressItem::class.java)
                 savedAddressList.add(addressItem)
             }
             savedAddresses.value = savedAddressList
@@ -86,9 +93,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     // get all submitted orders
     fun getSubmittedOrders(): MutableLiveData<List<OrderItem>> {
         firebaseRepository.getSubmittedOrders().addOnSuccessListener { document ->
-            var subOrderList : MutableList<OrderItem> = mutableListOf()
+            val subOrderList: MutableList<OrderItem> = mutableListOf()
             for (doc in document) {
-                var orderItem = doc.toObject(OrderItem::class.java)
+                val orderItem = doc.toObject(OrderItem::class.java)
                 subOrderList.add(orderItem)
             }
             submittedOrdersList.value = subOrderList
@@ -104,7 +111,7 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun getQuotedOrders(): MutableLiveData<List<OrderItem>> {
-        var user = FirebaseAuth.getInstance().currentUser!!
+        val user = FirebaseAuth.getInstance().currentUser!!
 
         firebaseRepository.getQuotedOrders().addSnapshotListener(EventListener<QuerySnapshot> { documents, e ->
             if(e != null){
@@ -113,17 +120,17 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var orderList : MutableList<OrderItem> = mutableListOf()
-            for(doc in documents!!){
-                var orderItem = doc.toObject(OrderItem::class.java)
-                var quotationList = orderItem.quotations
+            val orderList: MutableList<OrderItem> = mutableListOf()
+            for(doc in documents!!) {
+                val orderItem = doc.toObject(OrderItem::class.java)
+                val quotationList = orderItem.quotations
                 var quotedBySelf = false
-                for(quote in quotationList){
-                    if(quote.retailerId == user.email.toString()){
+                for (quote in quotationList) {
+                    if (quote.retailerId == user.email.toString()) {
                         quotedBySelf = true
                     }
                 }
-                if(!quotedBySelf)
+                if (!quotedBySelf)
                     orderList.add(orderItem)
             }
 
@@ -141,9 +148,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var orderList : MutableList<OrderItem> = mutableListOf()
+            val orderList: MutableList<OrderItem> = mutableListOf()
             for(doc in documents!!){
-                var orderItem = doc.toObject(OrderItem::class.java)
+                val orderItem = doc.toObject(OrderItem::class.java)
                 orderList.add(orderItem)
             }
 
@@ -161,7 +168,7 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var orderList : MutableList<OrderItem> = mutableListOf()
+            val orderList: MutableList<OrderItem> = mutableListOf()
             for(doc in documents!!){
                 var orderItem = doc.toObject(OrderItem::class.java)
                 orderList.add(orderItem)
@@ -180,9 +187,9 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
                 return@EventListener
             }
 
-            var orderList : MutableList<OrderItem> = mutableListOf()
+            val orderList: MutableList<OrderItem> = mutableListOf()
             for(doc in documents!!){
-                var orderItem = doc.toObject(OrderItem::class.java)
+                val orderItem = doc.toObject(OrderItem::class.java)
                 orderList.add(orderItem)
             }
 

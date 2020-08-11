@@ -43,7 +43,7 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
         fun bindItems(context: Context, orderItem: OrderItem) {
             this.context = context
 
-            var preferredDeliveryTime = DateTimeUtils.getPreferredDeliveryDate(
+            val preferredDeliveryTime = DateTimeUtils.getPreferredDeliveryDate(
                 orderItem.preferredDate,
                 orderItem.preferredTimeSlot
             )
@@ -58,7 +58,7 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
             )
 
             itemView.setOnClickListener {
-                var intent = Intent(
+                val intent = Intent(
                     context,
                     CalculateQuotationPriceActivity::class.java
                 )
@@ -72,7 +72,7 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
             var formattedDate = DateTimeUtils.dateTimeFormatter.format(time)
             if (time == 0L)
                 formattedDate = ""
-            var statusArray = context.resources.getStringArray(R.array.order_status_labels)
+            val statusArray = context.resources.getStringArray(R.array.order_status_labels)
             var status = ""
 
             when (orderStatus) {

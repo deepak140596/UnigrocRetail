@@ -49,7 +49,7 @@ class AddressItemAdapter(var context: AppCompatActivity, var addressList : List<
 
             itemView.item_address_options_tv.setOnClickListener { view ->
                 Log.i(TAG,"Options clicked!")
-                var popupMenu = PopupMenu(context, view.item_address_options_tv)
+                val popupMenu = PopupMenu(context, view.item_address_options_tv)
                 popupMenu.inflate(R.menu.menu_item_address)
 
                 // action on menu items in each row

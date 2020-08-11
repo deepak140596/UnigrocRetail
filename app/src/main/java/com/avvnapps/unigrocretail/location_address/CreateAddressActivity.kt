@@ -2,10 +2,10 @@ package com.avvnapps.unigrocretail.location_address
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
 import com.avvnapps.unigrocretail.models.AddressItem
@@ -41,7 +41,7 @@ class CreateAddressActivity : AppCompatActivity() {
             setupViews()
         }
 
-        firestoreViewModel = ViewModelProviders.of(this).get(FirestoreViewModel::class.java)
+        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         getLocation()
 
         create_address_set_location_btn.setOnClickListener {
