@@ -3,6 +3,7 @@ package com.avvnapps.unigrocretail
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -18,6 +19,10 @@ import com.avvnapps.unigrocretail.utils.GpsUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import com.skydoves.androidbottombar.BottomMenuItem
+import com.skydoves.androidbottombar.OnMenuItemSelectedListener
+import com.skydoves.androidbottombar.animations.BadgeAnimation
+import com.skydoves.androidbottombar.forms.badgeForm
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_navigation.*
 import retrofit2.Call
@@ -26,10 +31,10 @@ import retrofit2.Response
 
 class NavigationActivity : AppCompatActivity() {
 
-    var TAG = "NAV_ACTIVITY"
+    val TAG by lazy { "NAV_ACTIVITY" }
 
     private val gpsUtils by lazy { GpsUtils(this) }
-    val firestoreDB: FirebaseFirestore by lazy {
+    private val firestoreDB: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
     val user by lazy { FirebaseAuth.getInstance().currentUser }
@@ -40,31 +45,83 @@ class NavigationActivity : AppCompatActivity() {
 
         askForPermissions()
 
-        activity_bottom_nav_view.setOnItemSelectedListener { id ->
-            when (id) {
-                R.id.bottom_navigation_dashboard -> {
-                    //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
-                    startFragment(DashboardFragment())
-                }
-                R.id.bottom_navigation_search ->{
-                    //  startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
-
-                    Toasty.info(this@NavigationActivity, "Search!").show()
-                }
-                R.id.bottom_navigation_account ->{
-                    startFragment(Account())
-                }
-
-                else -> {
-                    //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
-                    startFragment(DashboardFragment())
-                }
-            }
-        }
+        bottomBarView()
 
         getUserData()
 
         // startFragment(DashboardFragment())
+    }
+
+    private fun bottomBarView() {
+        val badgeForm = badgeForm(this) {
+            setBadgeTextSize(9f)
+            setBadgePaddingLeft(6)
+            setBadgePaddingRight(6)
+            setBadgeDuration(550)
+        }
+
+        activity_bottom_nav_view.addBottomMenuItems(
+            mutableListOf(
+                BottomMenuItem(this)
+                    .setTitle("Home")
+                    .setBadgeForm(badgeForm)
+                    .setBadgeColorRes(R.color.md_blue_200)
+                    .setBadgeAnimation(BadgeAnimation.FADE)
+                    .setBadgeText("New!")
+                    .setIcon(R.drawable.ic_home)
+                    .build(),
+
+                BottomMenuItem(this)
+                    .setTitle("Order History")
+                    .setIcon(R.drawable.ic_search_black_24dp)
+                    .build(),
+
+                BottomMenuItem(this)
+                    .setTitle("Account")
+                    .setIcon(R.mipmap.ic_person_black)
+                    .build()
+            )
+
+
+        )
+
+        activity_bottom_nav_view.onMenuItemSelectedListener = object : OnMenuItemSelectedListener {
+            override fun onMenuItemSelected(
+                index: Int,
+                bottomMenuItem: BottomMenuItem,
+                fromUser: Boolean
+            ) {
+                when (index) {
+                    0 -> {
+                        //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
+                        activity_bottom_nav_view.dismissBadge(index)
+                        startFragment(DashboardFragment())
+                    }
+                    1 -> {
+                        //  startActivity(Intent(this@NavigationActivity,RetailerAddInfo::class.java))
+                        Toasty.info(this@NavigationActivity, "Search!").show()
+                    }
+                    2 -> {
+                        startFragment(Account())
+                    }
+                    else -> {
+                        //startActivity(Intent(this@NavigationActivity,SavedAddressesActivity::class.java))
+                        startFragment(DashboardFragment())
+                    }
+                }
+            }
+        }
+
+        activity_bottom_nav_view.setOnBottomMenuInitializedListener {
+
+            // show badges after 1500 milliseconds.
+            Handler().postDelayed({
+                activity_bottom_nav_view.showBadge(index = 0)
+                activity_bottom_nav_view.showBadge(1)
+            }, 1500L)
+
+        }
+
     }
 
     private fun getUserData() {
@@ -102,27 +159,33 @@ class NavigationActivity : AppCompatActivity() {
 
 
     private fun askForPermissions() {
-        ActivityCompat.requestPermissions(this,
+        ActivityCompat.requestPermissions(
+            this,
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION),
-            1)
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            1
+        )
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
-            1 ->{
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            1 -> {
 
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     //isPermissionAcquired = true
-                   // updateLocation()
+                    // updateLocation()
                     getLocation()
-                }
-                else{
+                } else {
                     // permission was denied
                     // isPermissionAcquired = false
-                    Toasty.error(this,"Permission Denied").show()
+                    Toasty.error(this, "Permission Denied").show()
                     // set empty list view
                 }
             }
@@ -131,10 +194,10 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun getLocation() {
-        activity_bottom_nav_view.setItemSelected(
-            R.id.bottom_navigation_dashboard,
-            true
-        )
+
+        startFragment(DashboardFragment())
+
+
         gpsUtils.getLatLong { lat, long ->
             Log.i(TAG, "location is $lat + $long")
             // startFragment(DashboardFragment())

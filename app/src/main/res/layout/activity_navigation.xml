@@ -24,18 +24,21 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-
-        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        <com.skydoves.androidbottombar.AndroidBottomBarView
                 android:id="@+id/activity_bottom_nav_view"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="#fff"
-                android:padding="8dp"
-                android:elevation="16dp"
-                app:cnb_menuResource="@menu/bottom_nav_menu"
+                android:layout_height="64dp"
+                android:background="@color/colorPrimary"
+                app:bottomBar_duration="300"
+                app:bottomBar_flavor="icon"
+                app:bottomBar_indicator_color="@color/md_blue_300"
+                app:bottomBar_indicator_height="4dp"
+                app:bottomBar_indicator_padding="6dp"
+                app:bottomBar_indicator_radius="12dp"
                 android:layout_alignParentBottom="true"
-                app:layout_scrollFlags="scroll|enterAlways"
-                 />
+                app:bottomBar_indicator_visible="true"
+                app:bottomBar_menuAnimation="overshoot"
+                app:bottomBar_selectedIndex="0" />
 
         <!--   <com.google.android.material.bottomnavigation.BottomNavigationView
               android:id="@+id/activity_bottom_nav_view"
