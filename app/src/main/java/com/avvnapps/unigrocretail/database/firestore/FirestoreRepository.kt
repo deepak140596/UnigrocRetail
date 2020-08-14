@@ -113,12 +113,16 @@ class FirestoreRepository {
     }
 
 
-
-    private fun getTotalQuotationPrice(cartList: List<CartEntity>) : Double{
+    private fun getTotalQuotationPrice(cartList: List<CartEntity>): Double {
         var totalPrice = 0.0
-        for(cartItem in cartList){
+        for (cartItem in cartList) {
             totalPrice += cartItem.price * cartItem.quantity
         }
         return totalPrice
+    }
+
+    // get reviews  from firebase
+    fun getReviews(): CollectionReference {
+        return firestoreDB.collection("retailers/${email}/reviews")
     }
 }

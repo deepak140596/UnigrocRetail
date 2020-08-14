@@ -135,10 +135,10 @@
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 android:elevation="0dp"
-                app:tabIndicatorColor="@android:color/white"
-                app:tabIndicatorHeight="5dp"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                app:tabIndicatorColor="@color/primaryColor"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+                app:tabIndicatorHeight="4dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

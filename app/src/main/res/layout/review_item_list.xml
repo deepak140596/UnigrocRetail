@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        tools:layout_marginLeft="20dp"
+        tools:layout_marginRight="20dp">
+
+    <RelativeLayout
+            android:id="@+id/scale_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/list_item_horizontal_padding"
+            android:paddingTop="@dimen/list_item_vertical_padding"
+            android:paddingRight="@dimen/list_item_horizontal_padding"
+            android:paddingBottom="@dimen/list_item_vertical_padding">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userProfile"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/user_placeholder" />
+
+        <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/userProfile"
+                android:paddingStart="@dimen/dimen_16"
+                android:text="Ahraar Alam"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_normal" />
+
+
+        <com.willy.ratingbar.BaseRatingBar
+                android:id="@+id/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userName"
+                android:layout_marginStart="@dimen/dimen_16"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@id/userProfile"
+                app:srb_clearRatingEnabled="false"
+                app:srb_clickable="false"
+                app:srb_drawableEmpty="@drawable/empty_star"
+                app:srb_drawableFilled="@drawable/filled_star"
+                app:srb_isIndicator="true"
+                app:srb_minimumStars="0"
+                app:srb_numStars="5"
+                app:srb_rating="0"
+                app:srb_scrollable="true"
+                app:srb_starHeight="20dp"
+                app:srb_starPadding="@dimen/space_1"
+                app:srb_starWidth="20dp"
+                app:srb_stepSize="0.5">
+
+        </com.willy.ratingbar.BaseRatingBar>
+
+        <TextView
+                android:id="@+id/getTimeAgo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RatingBar"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:layout_toEndOf="@id/userProfile"
+                android:paddingTop="@dimen/space_4"
+                android:text="few mints ago"
+                android:textAlignment="textEnd" />
+
+
+        <LinearLayout
+                android:id="@+id/expand_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/getTimeAgo"
+                android:layout_alignStart="@id/userProfile"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+            <LinearLayout
+                    android:id="@+id/positive_reviewLL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ic_thumb_up_24"
+                        android:backgroundTint="@color/md_green_500"
+                        android:transformPivotX="0dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="positive"
+                        android:textAllCaps="true"
+                        android:textColor="@color/md_green_500" />
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/positive_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="46dp"
+                    android:background="#E7F7F7"
+                    android:paddingStart="@dimen/dimen_8"
+                    android:paddingTop="@dimen/dimen_1"
+                    android:paddingEnd="@dimen/dimen_8"
+                    android:paddingBottom="@dimen/dimen_1"
+                    android:text="positive Review"
+                    android:textColor="@color/black" />
+
+            <LinearLayout
+                    android:id="@+id/negative_reviewLL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ic_thumb_down_24"
+                        android:backgroundTint="@color/primaryDarkColor"
+                        android:transformPivotX="0dp" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Negative"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryDarkColor" />
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/negative_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="46dp"
+                    android:background="#E7F7F7"
+                    android:paddingStart="@dimen/dimen_8"
+                    android:paddingTop="@dimen/dimen_1"
+                    android:paddingEnd="@dimen/dimen_8"
+                    android:paddingBottom="@dimen/dimen_1"
+                    android:text="positive Review"
+                    android:textColor="@color/black" />
+
+            <TextView
+                    android:id="@+id/main_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:background="#E7F7F7"
+                    android:fontFamily="@font/bold"
+                    android:paddingStart="@dimen/dimen_8"
+                    android:paddingTop="@dimen/dimen_1"
+                    android:paddingEnd="@dimen/dimen_8"
+                    android:paddingBottom="@dimen/dimen_1"
+                    android:text="Main Review"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_below="@+id/expand_view"
+                android:layout_marginTop="@dimen/dimen_8"
+                android:background="@color/grey_light" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -19,29 +19,25 @@ import kotlinx.android.synthetic.main.activity_create_address.*
 
 class CreateAddressActivity : AppCompatActivity() {
     val TAG = "CREATE_ADDRESS"
-    val PLACE_PICKER_REQUEST = 1
-    var latitutde : Double ?= null
-    var longitude : Double ?= null
-    var firestoreViewModel : FirestoreViewModel ?=null
-    var addressItem: AddressItem?=null
+    private val PLACE_PICKER_REQUEST = 1
+    var latitutde: Double? = null
+    var longitude: Double? = null
+    val firestoreViewModel by lazy { ViewModelProvider(this).get(FirestoreViewModel::class.java) }
+    private var addressItem: AddressItem? = null
 
-    private lateinit var gpsUtils: GpsUtils
+    private val gpsUtils by lazy { GpsUtils(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_address)
-        gpsUtils = GpsUtils(this)
 
-
-        var data = intent.getSerializableExtra("address_item")
-        if(data != null )
+        val data = intent.getSerializableExtra("address_item")
+        if (data != null)
             addressItem = data as AddressItem
         if(addressItem != null){
             setupViews()
         }
-
-        firestoreViewModel = ViewModelProvider(this).get(FirestoreViewModel::class.java)
         getLocation()
 
         create_address_set_location_btn.setOnClickListener {
@@ -51,7 +47,7 @@ class CreateAddressActivity : AppCompatActivity() {
 
         create_address_done_fab.setOnClickListener {
             if(isFormValid()){
-                var addressItem = AddressItem(
+                val addressItem = AddressItem(
                     create_address_name_edit_text.text.toString(),
                     create_address_name_edit_text.text.toString(),
                     create_address_house_name_edit_text.text.toString(),
@@ -60,7 +56,7 @@ class CreateAddressActivity : AppCompatActivity() {
                     latitutde!!, longitude!!
                 )
 
-                firestoreViewModel!!.saveAddressToFirebase(addressItem)
+                firestoreViewModel.saveAddressToFirebase(addressItem)
                 // save the selected address as default
                 SharedPreferencesDB.savePreferredAddress(this@CreateAddressActivity,addressItem)
                 finish()
@@ -81,36 +77,36 @@ class CreateAddressActivity : AppCompatActivity() {
         }
     }
 
-    fun setupViews(){
+    private fun setupViews() {
         create_address_house_name_edit_text.setText(addressItem!!.houseName)
         create_address_locality_edit_text.setText(addressItem!!.locality)
-        create_address_landmark_edit_text.setText( addressItem!!.landmark)
-        create_address_name_edit_text.setText( addressItem!!.addressName)
+        create_address_landmark_edit_text.setText(addressItem!!.landmark)
+        create_address_name_edit_text.setText(addressItem!!.addressName)
         latitutde = addressItem!!.latitude
         longitude = addressItem!!.longitude
         create_address_is_location_set_cb.isChecked = true
     }
 
-    fun isFormValid() : Boolean{
+    private fun isFormValid(): Boolean {
 
-        if(create_address_house_name_edit_text.text.toString().trim().length == 0){
+        if (create_address_house_name_edit_text.text.toString().trim().isEmpty()) {
             create_address_house_name_input_layout.error = "Enter House Name"
             return false
         }
-        if(create_address_locality_edit_text.text.toString().trim().length == 0){
+        if (create_address_locality_edit_text.text.toString().trim().isEmpty()) {
             create_address_locality_input_layout.error = "Enter Locality"
             return false
         }
-        if(create_address_landmark_edit_text.text.toString().trim().length == 0){
+        if (create_address_landmark_edit_text.text.toString().trim().isEmpty()) {
             create_address_landmark_input_layout.error = "Enter Landmark"
             return false
         }
-        if(create_address_name_edit_text.text.toString().trim().length == 0){
+        if (create_address_name_edit_text.text.toString().trim().isEmpty()) {
             create_address_name_input_layout.error = "Save address as"
             return false
         }
-        if(latitutde == null || longitude == null){
-            Toasty.error(this,"Please select location on Map!").show()
+        if (latitutde == null || longitude == null) {
+            Toasty.error(this, "Please select location on Map!").show()
             return false
         }
         return true

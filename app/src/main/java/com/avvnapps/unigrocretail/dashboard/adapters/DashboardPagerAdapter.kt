@@ -11,7 +11,8 @@ import com.avvnapps.unigrocretail.dashboard.ReadyOrdersFragment
  * Created by Deepak Prasad on 29-12-2018.
  */
 
-class DashboardPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class DashboardPagerAdapter(fm: FragmentManager) :
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         when (position) {

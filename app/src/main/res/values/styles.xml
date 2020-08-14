@@ -71,6 +71,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="RobotoBoldTextAppearance">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
     <style name="viewParent.headerText.settingsMiniTitle">
         <item name="android:textColor">#5D5C5C</item>
         <item name="android:layout_width">match_parent</item>

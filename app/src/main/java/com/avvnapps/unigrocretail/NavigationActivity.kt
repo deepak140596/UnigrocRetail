@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import com.skydoves.androidbottombar.BottomMenuItem
 import com.skydoves.androidbottombar.OnMenuItemSelectedListener
-import com.skydoves.androidbottombar.animations.BadgeAnimation
 import com.skydoves.androidbottombar.forms.badgeForm
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_navigation.*
@@ -65,10 +64,10 @@ class NavigationActivity : AppCompatActivity() {
             mutableListOf(
                 BottomMenuItem(this)
                     .setTitle("Home")
-                    .setBadgeForm(badgeForm)
+                   /* .setBadgeForm(badgeForm)
                     .setBadgeColorRes(R.color.md_blue_200)
                     .setBadgeAnimation(BadgeAnimation.FADE)
-                    .setBadgeText("New!")
+                    .setBadgeText("New Orders!")*/
                     .setIcon(R.drawable.ic_home)
                     .build(),
 
@@ -112,12 +111,11 @@ class NavigationActivity : AppCompatActivity() {
         }
 
         activity_bottom_nav_view.setOnBottomMenuInitializedListener {
-            activity_bottom_nav_view.dismissBadge(1)
+
 
             // show badges after 1500 milliseconds.
             Handler().postDelayed({
-                activity_bottom_nav_view.showBadge(index = 0)
-                activity_bottom_nav_view.showBadge(1)
+                //activity_bottom_nav_view.showBadge(index = 0)
             }, 1500L)
 
         }

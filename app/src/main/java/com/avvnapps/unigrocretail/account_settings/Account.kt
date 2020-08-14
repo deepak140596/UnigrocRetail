@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.avvnapps.unigrocretail.R
 import com.avvnapps.unigrocretail.authentication.AuthUiActivity
 import com.avvnapps.unigrocretail.database.SharedPreferencesDB
+import com.avvnapps.unigrocretail.store_reviews.ReviewsActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -90,7 +91,11 @@ class Account : Fragment() {
 
         change_range.setOnClickListener {
             setLocationRange()
+        }
 
+        store_reviews.setOnClickListener {
+            val intent = Intent(activity, ReviewsActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -98,6 +103,16 @@ class Account : Fragment() {
     private fun setLocationRange() {
         val dialog = BottomSheetDialog(activity)
         val view = layoutInflater.inflate(R.layout.location_range_bottomsheet, null)
+
+        val minDistl = SharedPreferencesDB.getLocationRange(activity)
+        if (minDistl == -1) {
+        } else {
+            view.sliderLocation.value = minDistl.toFloat()
+            val format = NumberFormat.getInstance()
+            format.maximumFractionDigits = 0
+            view.locationRangeTv.text =
+                "Delivery Range : ${format.format(minDistl)} km"
+        }
 
         view.sliderLocation.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: Slider) {
@@ -131,7 +146,6 @@ class Account : Fragment() {
             view.locationRangeTv.text = "Delivery Range ${format.format(value.toDouble())}km"
         }
         view.updateLocationRange.setOnClickListener {
-
             dialog.dismiss()
         }
 

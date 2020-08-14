@@ -7,10 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.avvnapps.unigrocretail.database.firestore.FirestoreRepository
-import com.avvnapps.unigrocretail.models.AddressItem
-import com.avvnapps.unigrocretail.models.CartEntity
-import com.avvnapps.unigrocretail.models.OrderItem
-import com.avvnapps.unigrocretail.models.UserInfo
+import com.avvnapps.unigrocretail.models.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
@@ -19,22 +16,24 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
 
     val TAG = "FIRESTORE_VIEW_MODEL"
     var firebaseRepository = FirestoreRepository()
-    var availableCartItems : MutableLiveData<List<CartEntity>> = MutableLiveData()
-    var savedAddresses : MutableLiveData<List<AddressItem>> = MutableLiveData()
-    var submittedOrdersList : MutableLiveData<List<OrderItem>> = MutableLiveData()
-    var quotedOrdersList : MutableLiveData<List<OrderItem>> = MutableLiveData()
-    var currentOrderList : MutableLiveData<List<OrderItem>> = MutableLiveData()
-    var readyOrderList : MutableLiveData<List<OrderItem>> = MutableLiveData()
-    var completedOrderList : MutableLiveData<List<OrderItem>> = MutableLiveData()
+    var availableCartItems: MutableLiveData<List<CartEntity>> = MutableLiveData()
+    var savedAddresses: MutableLiveData<List<AddressItem>> = MutableLiveData()
+    var submittedOrdersList: MutableLiveData<List<OrderItem>> = MutableLiveData()
+    var quotedOrdersList: MutableLiveData<List<OrderItem>> = MutableLiveData()
+    var currentOrderList: MutableLiveData<List<OrderItem>> = MutableLiveData()
+    var readyOrderList: MutableLiveData<List<OrderItem>> = MutableLiveData()
+    var completedOrderList: MutableLiveData<List<OrderItem>> = MutableLiveData()
+
+    var retailerReviews: MutableLiveData<List<Review>> = MutableLiveData()
 
 
     // get available cart items from firestore
-    fun getAvailableCartItems() : LiveData<List<CartEntity>>{
+    fun getAvailableCartItems(): LiveData<List<CartEntity>> {
 
         availableCartItems = MutableLiveData()
-        firebaseRepository.getAvailableCartItems().addOnSuccessListener {documents ->
+        firebaseRepository.getAvailableCartItems().addOnSuccessListener { documents ->
             val availableCartList: MutableList<CartEntity> = mutableListOf()
-            for(doc in documents){
+            for (doc in documents) {
                 val cartItem = doc.toObject(CartEntity::class.java)
                 availableCartList.add(cartItem)
             }
@@ -200,13 +199,34 @@ class FirestoreViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun makeOrderReady(orderItem: OrderItem){
         firebaseRepository.makeOrderReady(orderItem).addOnFailureListener {
-            Log.e(TAG,"Unable to make order ready: $it")
+            Log.e(TAG, "Unable to make order ready: $it")
         }
     }
 
-    fun completeOrder(orderItem: OrderItem){
+    fun completeOrder(orderItem: OrderItem) {
         firebaseRepository.completeOrder(orderItem).addOnFailureListener {
-            Log.e(TAG,"Unable to complete order: $it")
+            Log.e(TAG, "Unable to complete order: $it")
         }
+    }
+
+    // get realtime updates from firebase regarding reviews
+    fun getReviews(): LiveData<List<Review>> {
+        firebaseRepository.getReviews()
+            .addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    savedAddresses.value = null
+                    return@EventListener
+                }
+
+                val retailerReviewsList: MutableList<Review> = mutableListOf()
+                for (doc in value!!) {
+                    val addressItem = doc.toObject(Review::class.java)
+                    retailerReviewsList.add(addressItem)
+                }
+                retailerReviews.value = retailerReviewsList
+            })
+
+        return retailerReviews
     }
 }
