@@ -124,7 +124,7 @@ class Account : Fragment() {
                 val format = NumberFormat.getInstance()
                 format.maximumFractionDigits = 0
                 view.locationRangeTv.text =
-                    "Delivery Range : ${format.format(slider.value.toDouble())}km"
+                    "Delivery Range : ${format.format(slider.value.toDouble())} km"
                 SharedPreferencesDB.saveLocationRange(
                     activity,
                     format.format(slider.value.toDouble()).toDouble()
@@ -145,9 +145,7 @@ class Account : Fragment() {
             format.maximumFractionDigits = 0
             view.locationRangeTv.text = "Delivery Range ${format.format(value.toDouble())}km"
         }
-        view.updateLocationRange.setOnClickListener {
-            dialog.dismiss()
-        }
+       
 
         dialog.setCancelable(true)
         dialog.setContentView(view)

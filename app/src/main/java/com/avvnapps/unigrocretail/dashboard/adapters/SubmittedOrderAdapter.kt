@@ -79,7 +79,7 @@ class SubmittedOrderAdapter(var context: Context, var submittedOrderList: List<O
                 0 -> status = statusArray[0]
                 1 -> {
                     status = statusArray[1]
-                    formattedDate = ""
+                    //formattedDate = ""
                 }
                 2 -> status = statusArray[2]
                 3 -> {

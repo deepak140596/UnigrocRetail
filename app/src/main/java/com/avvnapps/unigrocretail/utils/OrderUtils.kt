@@ -6,13 +6,13 @@ import com.avvnapps.unigrocretail.models.OrderItem
 class OrderUtils{
     companion object {
         fun getTime(orderStatus: Int,orderItem: OrderItem) : Long{
-            when(orderStatus){
-                0 -> return orderItem.dateSubmitted
-                1 -> return orderItem.dateQuoted
-                2 -> return orderItem.datePlaced
-                3 -> return 0
-                4 -> return orderItem.dateReady
-                5 -> return orderItem.dateCompleted
+            when (orderStatus) {
+                1 -> return orderItem.dateSubmitted
+                2 -> return orderItem.dateQuoted
+                3 -> return orderItem.datePlaced
+                4 -> return 0
+                5 -> return orderItem.dateReady
+                6 -> return orderItem.dateCompleted
             }
             return 0
         }
@@ -40,7 +40,7 @@ class OrderUtils{
         }
 
         fun getLocalOrders(activity: AppCompatActivity, orders : List<OrderItem>): MutableList<OrderItem> {
-            var localOrders : MutableList<OrderItem> = mutableListOf()
+            val localOrders: MutableList<OrderItem> = mutableListOf()
             for(orderItem in orders){
                 if(LocationUtils.isNear(activity,orderItem.address))
                     localOrders.add(orderItem)

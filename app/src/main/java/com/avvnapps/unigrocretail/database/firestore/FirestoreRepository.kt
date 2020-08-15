@@ -7,6 +7,7 @@ import com.avvnapps.unigrocretail.utils.ApplicationConstants
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.util.*
 
 class FirestoreRepository {
 
@@ -71,8 +72,11 @@ class FirestoreRepository {
         )
 
 
-        docRef.update("quotations", FieldValue.arrayUnion(newQuotation),
-            "orderStatus", ApplicationConstants.ORDER_QUOTED)
+        docRef.update(
+            "quotations", FieldValue.arrayUnion(newQuotation),
+            "orderStatus", ApplicationConstants.ORDER_QUOTED
+        )
+        docRef.update("dateQuoted", Date().time)
     }
 
     fun getQuotedOrders(): Query {
