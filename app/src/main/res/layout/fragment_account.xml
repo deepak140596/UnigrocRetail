@@ -85,9 +85,21 @@
                     android:background="?selectableItemBackground"
                     android:checked="true"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_edit_password"
                     android:focusable="true"
-                    android:text="Change Password" />
+                    android:text="Change Password"
+                    app:drawableStartCompat="@drawable/ic_edit_password" />
+
+            <TextView
+                    android:id="@+id/store_reviews"
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:layout_marginTop="10dp"
+                    android:background="?selectableItemBackground"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="Store Reviews"
+                    app:drawableStartCompat="@drawable/ic_baseline_star_border_24" />
+
 
             <TextView
                     style="@style/viewParent.headerText.settingsMiniTitle"

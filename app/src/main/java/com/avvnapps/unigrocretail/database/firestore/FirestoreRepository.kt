@@ -7,6 +7,7 @@ import com.avvnapps.unigrocretail.utils.ApplicationConstants
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.util.*
 
 class FirestoreRepository {
 
@@ -71,8 +72,11 @@ class FirestoreRepository {
         )
 
 
-        docRef.update("quotations", FieldValue.arrayUnion(newQuotation),
-            "orderStatus", ApplicationConstants.ORDER_QUOTED)
+        docRef.update(
+            "quotations", FieldValue.arrayUnion(newQuotation),
+            "orderStatus", ApplicationConstants.ORDER_QUOTED
+        )
+        docRef.update("dateQuoted", Date().time)
     }
 
     fun getQuotedOrders(): Query {
@@ -113,12 +117,16 @@ class FirestoreRepository {
     }
 
 
-
-    private fun getTotalQuotationPrice(cartList: List<CartEntity>) : Double{
+    private fun getTotalQuotationPrice(cartList: List<CartEntity>): Double {
         var totalPrice = 0.0
-        for(cartItem in cartList){
+        for (cartItem in cartList) {
             totalPrice += cartItem.price * cartItem.quantity
         }
         return totalPrice
+    }
+
+    // get reviews  from firebase
+    fun getReviews(): CollectionReference {
+        return firestoreDB.collection("retailers/${email}/reviews")
     }
 }

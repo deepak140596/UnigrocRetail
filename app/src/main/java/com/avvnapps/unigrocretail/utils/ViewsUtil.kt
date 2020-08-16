@@ -3,6 +3,7 @@ package com.avvnapps.unigrocretail.utils
 import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -13,6 +14,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import es.dmoral.toasty.Toasty
 
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    visibility = View.GONE
+}
+
 //Success Toast
 fun Context.successToast(message: String) =
     Toasty.success(this, message, Toast.LENGTH_SHORT).show()
@@ -22,7 +32,7 @@ fun Context.errorToast(message: String) =
     Toasty.error(this, message, Toast.LENGTH_SHORT).show()
 
 //Progress Bar
-fun setProgressDialog(context: Context, message:String):AlertDialog {
+fun setProgressDialog(context: Context, message: String): AlertDialog {
     val llPadding = 16
     val ll = LinearLayout(context)
     ll.orientation = LinearLayout.HORIZONTAL

@@ -20,6 +20,9 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
+                android:name=".store_reviews.ReviewsActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+        <activity
                 android:name=".SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -28,7 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".account_settings.EditProfile"
                 android:theme="@style/MaterialTheme" />
@@ -56,9 +58,7 @@
         <activity android:name=".location_address.SavedAddressesActivity" />
         <activity
                 android:name=".authentication.AuthUiActivity"
-                android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
+                android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".authentication.VerifyPhoneActivity" />
         <activity
                 android:name=".NavigationActivity"
